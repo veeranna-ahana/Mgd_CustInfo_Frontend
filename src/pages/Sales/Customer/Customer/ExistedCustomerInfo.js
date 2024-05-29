@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 // import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { Typeahead } from "react-bootstrap-typeahead";
+import { whitelist } from "validator";
 
 const { postRequest } = require("../../../api/apiinstance");
 const { endpoints } = require("../../../api/constants");
@@ -728,341 +729,346 @@ function UpdateCustomerDetails() {
       <h4 className="title">Customer Details</h4>
 
       <div className="form-style">
-        <Col xs={12}>
-          <div className="addquotecard">
-            <Form onSubmit={updateCustomerData} autoComplete="off">
-              <div className="row">
-                <div className="col-md-4">
-                  {" "}
-                  <Form.Group controlId="CustName">
-                    <label className="form-label">Name</label>
-                    <Form.Label
-                      style={{
-                        color: "#f20707",
-                        fontSize: "16px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      *
-                    </Form.Label>
-                    {custdata.length > 0 ? (
-                      // <Form.Select
-                      //   className="ip-select "
-                      //   controlId="CustName"
-                      //   onChange={selectCust}
-                      // >
-                      //   <option value="" disabled selected>
-                      //     {" "}
-                      //     Select Customer
-                      //   </option>
-                      //   {custdata.map((cust) => {
-                      //     return (
-                      //       <option value={cust["Cust_Code"]}>
-                      //         {cust["Cust_name"]}
-                      //       </option>
-                      //     );
-                      //   })}
-                      // </Form.Select>
-                      <Typeahead
-                        id="basic-example"
-                        // onChange={selectCust}
-                        options={custdata}
-                        placeholder="Select Customer"
-                        // selected={selected}
-                        /*onInputChange={(label) => {
+        <div className="addquotecard">
+          <Form onSubmit={updateCustomerData} autoComplete="off">
+            <div className="row">
+              <div className="col-md-4 d-flex" style={{ gap: "24px" }}>
+                <label className="form-label">
+                  Name
+                  <span
+                    style={{
+                      color: "#f20707",
+                      fontSize: "16px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    *
+                  </span>
+                </label>
+                {custdata.length > 0 ? (
+                  // <Form.Select
+                  //   className="ip-select "
+                  //   controlId="CustName"
+                  //   onChange={selectCust}
+                  // >
+                  //   <option value="" disabled selected>
+                  //     {" "}
+                  //     Select Customer
+                  //   </option>
+                  //   {custdata.map((cust) => {
+                  //     return (
+                  //       <option value={cust["Cust_Code"]}>
+                  //         {cust["Cust_name"]}
+                  //       </option>
+                  //     );
+                  //   })}
+                  // </Form.Select>
+                  <Typeahead
+                    className="ip-select"
+                    // id="basic-example"
+                    id="CustName"
+                    // onChange={selectCust}
+                    options={custdata}
+                    placeholder="Select Customer"
+                    // selected={selected}
+                    /*onInputChange={(label) => {
                   console.log("input change :", label);
                 }}
                 onChange={(label) => {
                   console.log("onchange :", label);
                 }}*/
-                        onChange={(label) => selectCust(label)}
-                      />
-                    ) : (
-                      ""
-                    )}
-                  </Form.Group>
-                </div>
-                <div className="col-md-4">
-                  <Form.Group as={Row}>
-                    <label className="form-label">Code</label>
-                    <input
-                      type="text"
-                      id="custcode"
-                      disabled
-                      value={custcode}
-                    />
-                  </Form.Group>
-                </div>
-                <div className="col-md-4">
-                  {" "}
-                  <Form.Group>
-                    <label className="form-label">Branch</label>
-                    <input
-                      type="text"
-                      id="branchName"
-                      onChange={checkBranch}
-                      value={branchName}
-                    />
-                  </Form.Group>
-                </div>
+                    onChange={(label) => selectCust(label)}
+                  />
+                ) : (
+                  ""
+                )}
               </div>
-              <div className="row">
-                <div className="col-md-4">
-                  <Form.Group>
-                    <FormLabel>City </FormLabel>
-                    <Form.Label
-                      style={{
-                        color: "#f20707",
-                        fontSize: "16px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      *
-                    </Form.Label>
-                    <input
-                      type="text"
-                      id="city"
-                      onChange={(e) => setCustCity(e.target.value)}
-                      value={custcity}
-                    />
-                  </Form.Group>
-                </div>
-                <div className="col-md-4">
-                  {" "}
-                  <Form.Group>
-                    <FormLabel>Address </FormLabel>
-                    <Form.Label
-                      style={{
-                        color: "#f20707",
-                        fontSize: "16px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      *
-                    </Form.Label>
-                    <input
-                      type="textarea"
-                      id="custaddress"
-                      rows={2}
-                      onChange={(e) => setCustAddress(e.target.value)}
-                      value={custaddress}
-                      required
-                    />
-                  </Form.Group>
-                </div>
-                <div className="col-md-4">
-                  <Form.Group>
-                    <FormLabel>Pin Code </FormLabel>
-                    <Form.Label
-                      style={{
-                        color: "#f20707",
-                        fontSize: "16px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      *
-                    </Form.Label>
-                    <input
-                      type="text"
-                      id="pincode"
-                      maxLength="6"
-                      onChange={(e) => handleChangeNumeric(e)}
-                      value={pincode}
-                      required
-                    />
-                  </Form.Group>
-                </div>
+              <div className="col-md-2 d-flex" style={{ gap: "40px" }}>
+                <label className="form-label">Code</label>
+                <input
+                  className="in-field"
+                  type="text"
+                  id="custcode"
+                  disabled
+                  value={custcode}
+                />
               </div>
-              <div className="row">
-                <div className="col-md-4 mt-1">
-                  <Form.Group>
-                    <FormLabel>State </FormLabel>
-                    <Form.Label
-                      style={{
-                        color: "#f20707",
-                        fontSize: "16px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      *
-                    </Form.Label>
-                    {statedata.length > 0 ? (
-                      <select
-                        className="ip-select "
-                        id="custstate"
-                        onChange={selectState}
-                        value={custstateid}
-                        required
-                      >
-                        <option value="" disabled selected>
-                          {" "}
-                          Select State
-                        </option>
-                        {statedata.map((stat) => {
-                          return (
-                            <option
-                              style={{ fontFamily: "Roboto", fontSize: "12px" }}
-                              value={stat["StateCode"]}
-                            >
-                              {stat["State"]}
-                            </option>
-                          );
-                        })}
-                      </select>
-                    ) : (
-                      ""
-                    )}
-                  </Form.Group>
-                </div>
-                <div className="col-md-4">
-                  {" "}
-                  <Form.Group>
-                    <FormLabel>Country </FormLabel>
-                    <Form.Label
-                      style={{
-                        color: "#f20707",
-                        fontSize: "16px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      *
-                    </Form.Label>
-                    <input
-                      type="text"
-                      id="country"
-                      onChange={(e) => setCountry(e.target.value)}
-                      value={country}
-                      required
-                    />
-                  </Form.Group>
-                </div>
-                <div className="col-md-4">
-                  {" "}
-                  <Form.Group>
-                    <FormLabel>E mail</FormLabel>
-                    <input
-                      type="email"
-                      id="compemail"
-                      onChange={valemail}
-                      value={compemail}
-                    />
-                  </Form.Group>
-                </div>
+              <div className="col-md-3 d-flex" style={{ gap: "10px" }}>
+                <label className="form-label">Branch</label>
+                <input
+                  className="in-field"
+                  type="text"
+                  id="branchName"
+                  onChange={checkBranch}
+                  value={branchName}
+                />
               </div>
-              <div className="row">
-                <div className="col-md-4 mt-1">
-                  <Form.Group>
-                    <FormLabel>Cr Terms </FormLabel>
+              <div className="col-md-3 d-flex" style={{ gap: "33px" }}>
+                <label className="form-label">
+                  City
+                  <span
+                    style={{
+                      color: "#f20707",
+                      fontSize: "16px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    *
+                  </span>
+                </label>
 
-                    <Form.Label
-                      style={{
-                        color: "#f20707",
-                        fontSize: "16px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      *
-                    </Form.Label>
-                    {crtermsdata.length > 0 ? (
-                      <select
-                        className="ip-select"
-                        id="crterms"
-                        onChange={selectCrTerms}
-                        required
-                      >
-                        <option value={crterms} disabled selected>
-                          {crterms}
+                <input
+                  className="in-field"
+                  type="text"
+                  id="city"
+                  onChange={(e) => setCustCity(e.target.value)}
+                  value={custcity}
+                />
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-4 d-flex" style={{ gap: "10px", marginTop:'-5px' }}>
+                <label className="form-label">
+                  Address
+                  <span
+                    style={{
+                      color: "#f20707",
+                      fontSize: "16px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    *
+                  </span>{" "}
+                </label>
+
+                <input
+                  className="in-field"
+                  type="textarea"
+                  id="custaddress"
+                  rows={2}
+                  onChange={(e) => setCustAddress(e.target.value)}
+                  value={custaddress}
+                  required
+                />
+              </div>
+              <div className="col-md-2 d-flex" style={{ gap: "10px", marginTop:'-5px' }}>
+                <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+                  Pin Code
+                  <span
+                    style={{
+                      color: "#f20707",
+                      fontSize: "16px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    *
+                  </span>{" "}
+                </label>
+
+                <input
+                  className="in-field"
+                  type="text"
+                  id="pincode"
+                  maxLength="6"
+                  onChange={(e) => handleChangeNumeric(e)}
+                  value={pincode}
+                  required
+                />
+              </div>
+              <div className="col-md-3 d-flex" style={{ gap: "13px", marginTop:'-5px' }}>
+                <label className="form-label">
+                  State
+                  <span
+                    style={{
+                      color: "#f20707",
+                      fontSize: "16px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    *
+                  </span>
+                </label>
+
+                {statedata.length > 0 ? (
+                  <select
+                    className="ip-select "
+                    id="custstate"
+                    onChange={selectState}
+                    value={custstateid}
+                    required
+                  >
+                    <option value="" disabled selected>
+                      {" "}
+                      Select State
+                    </option>
+                    {statedata.map((stat) => {
+                      return (
+                        <option
+                          style={{ fontFamily: "Roboto", fontSize: "12px" }}
+                          value={stat["StateCode"]}
+                        >
+                          {stat["State"]}
                         </option>
-                        {crtermsdata.map((crterm) => {
-                          return (
-                            <option value={crterm["PaymentTerm"]}>
-                              {crterm["PaymentTerm"]}
-                            </option>
-                          );
-                        })}
-                      </select>
-                    ) : (
-                      ""
-                    )}
-                  </Form.Group>
-                </div>
-                <div className="col-md-4">
-                  {" "}
-                  <Form.Group>
-                    <FormLabel>Max. Credit </FormLabel>
-                    <Form.Label
-                      style={{
-                        color: "#f20707",
-                        fontSize: "16px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      *
-                    </Form.Label>
-                    <input
-                      type="text"
-                      id="maxcredit"
-                      onChange={funcmaxCredit}
-                      value={maxcredit}
-                      required
-                    />
-                  </Form.Group>
-                </div>
-                <div className="col-md-4">
-                  <Form.Group>
-                    <FormLabel>Cr Days</FormLabel>
-                    <input
-                      type="text"
-                      id="creditdays"
-                      onChange={funccreditdays}
-                      value={creditdays}
-                    />
-                  </Form.Group>
-                </div>
+                      );
+                    })}
+                  </select>
+                ) : (
+                  ""
+                )}
               </div>
-              <div className="row">
-                <div className="col-md-4">
-                  {" "}
-                  <Form.Group>
-                    <FormLabel>Ave. Payment Days</FormLabel>
-                    <input
-                      disabled
-                      id="avepaydays"
-                      type="text"
-                      onChange={(e) => setAvePayDays(e.target.value)}
-                      value={avepaydays}
-                    />
-                  </Form.Group>
-                </div>
-                <div className="col-md-4">
-                  {" "}
-                  <Form.Group>
-                    <FormLabel>First Billing</FormLabel>
-                    <input
-                      id="firstbillingdt"
-                      type="text"
-                      value={firstbillingdt}
-                      disabled
-                    />
-                  </Form.Group>
-                </div>
-                <div className="col-md-4">
-                  <Form.Group>
-                    <FormLabel>Last Billing</FormLabel>
-                    <input
-                      id="lastbillingdt"
-                      type="text"
-                      value={lastbillingdt}
-                      disabled
-                    />
-                  </Form.Group>
-                </div>
+              <div className="col-md-3 d-flex" style={{ gap: "10px", marginTop:'-5px' }}>
+                <label className="form-label">
+                  Country
+                  <span
+                    style={{
+                      color: "#f20707",
+                      fontSize: "16px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    *
+                  </span>{" "}
+                </label>
+
+                <input
+                  className="in-field"
+                  type="text"
+                  id="country"
+                  onChange={(e) => setCountry(e.target.value)}
+                  value={country}
+                  required
+                />
               </div>
-              <div className="row mt-4 justify-content-center">
+            </div>
+
+            <div className="row">
+              <div className="col-md-3 d-flex" style={{ gap: "27px", marginTop:'-5px' }}>
+                <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+                  E mail
+                </label>
+                <input
+                  className="in-field"
+                  type="email"
+                  id="compemail"
+                  onChange={valemail}
+                  value={compemail}
+                />
+              </div>
+              <div className="col-md-3 d-flex" style={{ gap: "19px", marginTop:'-5px' }}>
+                <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+                  Cr Terms
+                  <span
+                    style={{
+                      color: "#f20707",
+                      fontSize: "16px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    *
+                  </span>
+                </label>
+
+                {crtermsdata.length > 0 ? (
+                  <select
+                    className="ip-select"
+                    id="crterms"
+                    onChange={selectCrTerms}
+                    required
+                  >
+                    <option value={crterms} disabled selected>
+                      {crterms}
+                    </option>
+                    {crtermsdata.map((crterm) => {
+                      return (
+                        <option value={crterm["PaymentTerm"]}>
+                          {crterm["PaymentTerm"]}
+                        </option>
+                      );
+                    })}
+                  </select>
+                ) : (
+                  ""
+                )}
+              </div>
+              <div className="col-md-3 d-flex" style={{ gap: "10px", marginTop:'-5px' }}>
+                <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+                  Max. Credit
+                  <span
+                    style={{
+                      color: "#f20707",
+                      fontSize: "16px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    *
+                  </span>{" "}
+                </label>
+                <input
+                  className="in-field"
+                  type="text"
+                  id="maxcredit"
+                  onChange={funcmaxCredit}
+                  value={maxcredit}
+                  required
+                />
+              </div>
+              <div className="col-md-3 d-flex" style={{ gap: "22px", marginTop:'-5px' }}>
+                <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+                  Cr Days
+                </label>
+                <input
+                  className="in-field"
+                  type="text"
+                  id="creditdays"
+                  onChange={funccreditdays}
+                  value={creditdays}
+                />
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-3 d-flex" style={{ gap: "10px", marginTop:'-3px' }}>
+                <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+                  Ave. Payment Days
+                </label>
+                <input
+                  className="in-field"
+                  disabled
+                  id="avepaydays"
+                  type="text"
+                  onChange={(e) => setAvePayDays(e.target.value)}
+                  value={avepaydays}
+                />
+              </div>
+              <div className="col-md-3 d-flex" style={{ gap: "10px", marginTop:'-3px' }}>
+                <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+                  First Billing
+                </label>
+                <input
+                  className="in-field"
+                  id="firstbillingdt"
+                  type="text"
+                  value={firstbillingdt}
+                  disabled
+                />
+              </div>
+              <div className="col-md-3 d-flex" style={{ gap: "20px", marginTop:'-3px' }}>
+                <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+                  Last Billing
+                </label>
+                <input
+                  className="in-field"
+                  id="lastbillingdt"
+                  type="text"
+                  value={lastbillingdt}
+                  disabled
+                />
+              </div>
+              <div className="col-md-3" style={{marginTop:'-10px'}}>
                 <button
                   className="button-style"
                   id="btnSaveAllDetails"
-                  style={{ width: "206px" }}
                   type="submit"
                   // onClick={updateCustomerData()}
                   // onClick={notify}
@@ -1072,98 +1078,93 @@ function UpdateCustomerDetails() {
                 <button
                   id="btncustupdateclose"
                   className="button-style"
-                  style={{ width: "110px" }}
                   onClick={() => navigate("/Customer")}
                 >
-                  Close{" "}
+                  Close
                 </button>
               </div>
+            </div>
+            <div className="">
+              <label className="Out-standing-inv mb-2 ms-2">Commercial Info</label>
+              <div className="row">
+                <div className="col-md-2 d-flex" style={{ gap: "10px" }}>
+                  <label className="form-label">Select</label>
+                  <select
+                    controlId="gstpan"
+                    className="ip-select"
+                    onChange={chkgstpan}
+                  >
+                    <option value="Select">Select</option>
+                    <option value="GST">GST</option>
+                    <option value="PAN">PAN</option>
+                  </select>
+                </div>
+                <div className="col-md-2 d-flex" style={{ gap: "10px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    GST No
+                  </label>
+                  <input
+                    className="in-field"
+                    type="text"
+                    id="gstno"
+                    disabled={gstdisabled}
+                    maxLength={15}
+                    onChange={HandleGSTNo}
+                    value={gstno}
+                  />
+                </div>
+                <div className="col-md-3 d-flex" style={{ gap: "10px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    PAN No
+                  </label>
+                  <input
+                    className="in-field"
+                    type="text"
+                    id="panno"
+                    disabled={pandisabled}
+                    maxLength={10}
+                    onChange={valPanNo}
+                    value={panno}
+                  />
+                </div>
 
-              <div className="p-2">
-                <h4 className="form-title  mt-2">Commercial Info</h4>
-                <hr className="horizontal-line" />
-
-                <div className="row">
-                  <div className="col-md-1 mt-1">
-                    {" "}
-                    <FormLabel>Select</FormLabel>
-                    <select
-                      controlId="gstpan"
-                      className="ip-select"
-                      onChange={chkgstpan}
-                    >
-                      <option value="Select">Select</option>
-                      <option value="GST">GST</option>
-                      <option value="PAN">PAN</option>
-                    </select>
-                  </div>
-                  <div className="col-md-3">
-                    {" "}
-                    <Form.Group>
-                      <FormLabel>GST No</FormLabel>
-                      <input
-                        type="text"
-                        id="gstno"
-                        disabled={gstdisabled}
-                        maxLength={15}
-                        onChange={HandleGSTNo}
-                        value={gstno}
-                      />
-                    </Form.Group>
-                  </div>
-                  <div className="col-md-3">
-                    <Form.Group>
-                      <FormLabel>PAN No</FormLabel>
-                      <input
-                        type="text"
-                        id="panno"
-                        disabled={pandisabled}
-                        maxLength={10}
-                        onChange={valPanNo}
-                        value={panno}
-                      />
-                    </Form.Group>
-                  </div>
-
-                  <div className="col-md-3 mt-5">
-                    <div className="form-check">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        value=""
-                        id="govtorg"
-                        onChange={() => setGovtOrg(!govtorg)}
-                        checked={govtorg}
-                      />
-                      <label
-                        className="form-check-label checkBoxStyle"
-                        htmlFor="flexCheckDefault"
-                      >
-                        Is Government Organization
-                      </label>
-                    </div>
-                  </div>
-                  <div className="col-md-2 mt-5">
-                    <div className="form-check">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        value=""
-                        id="isexport"
-                        onChange={() => setIsExport(!isexport)}
-                        checked={isexport}
-                      />
-                      <label
-                        className="form-check-label checkBoxStyle"
-                        htmlFor="flexCheckDefault"
-                      >
-                        Is Export
-                      </label>
-                    </div>
+                <div className="col-md-3">
+                  <div className="d-flex" style={{ gap: "10px" }}>
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="govtorg"
+                      onChange={() => setGovtOrg(!govtorg)}
+                      checked={govtorg}
+                    />
+                    <label className="form-label mt-1">
+                      Is Government Organization
+                    </label>
                   </div>
                 </div>
-                <div className="row">
-                  {/* <div className="col-md-4 mt-3">
+                <div className="col-md-2">
+                  <div className="d-flex" style={{ gap: "10px" }}>
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="isexport"
+                      onChange={() => setIsExport(!isexport)}
+                      checked={isexport}
+                    />
+                    <label className="form-label mt-1">Is Export</label>
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                {/* <div className="col-md-4 mt-3">
                     {" "}
                     <Form.Group as={Row} controlId="govtorg">
                       <FormCheck
@@ -1185,7 +1186,7 @@ function UpdateCustomerDetails() {
                       </FormCheckLabel>
                     </Form.Group>
                   </div> */}
-                  {/* <div className="col-md-4 mt-3">
+                {/* <div className="col-md-4 mt-3">
                     <Form.Group
                       as={Row}
                       className="mt-2"
@@ -1210,65 +1211,67 @@ function UpdateCustomerDetails() {
                       </FormCheckLabel>
                     </Form.Group>
                   </div> */}
-                </div>
-                <div className="row">
-                  <div className="col-md-3">
-                    {" "}
-                    <Form.Group className="mt-2">
-                      <FormLabel>Folder Name </FormLabel>
-                      <Form.Label
-                        style={{
-                          color: "#f20707",
-                          fontSize: "16px",
-                          fontWeight: "bold",
-                        }}
-                      >
-                        *
-                      </Form.Label>
-                      <input
-                        type="text"
-                        id="custfoldername"
-                        onChange={(e) => setCustFolderName(e.target.value)}
-                        value={custfoldername}
-                        required
-                      />
-                    </Form.Group>
-                  </div>
+              </div>
+              <div className="row">
+                <div className="col-md-3 d-flex" style={{ gap: "10px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Folder Name
+                    <span
+                      style={{
+                        color: "#f20707",
+                        fontSize: "16px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      *
+                    </span>
+                  </label>
 
-                  <div className="col-md-4 ">
-                    <Form.Group as={Row} className="mt-2">
-                      <FormLabel>Delivery </FormLabel>
-                      {mtrlsourcedata.length > 0 ? (
-                        <select
-                          className="ip-select mt-1"
-                          id="delivery"
-                          onChange={selectMtrlSource}
-                          value={delivery}
-                        >
-                          <option value="" disabled selected>
-                            ** Select **
+                  <input
+                    className="in-field"
+                    type="text"
+                    id="custfoldername"
+                    onChange={(e) => setCustFolderName(e.target.value)}
+                    value={custfoldername}
+                    required
+                  />
+                </div>
+
+                <div className="col-md-4 d-flex" style={{ gap: "10px" }}>
+                  <label className="form-label">Delivery </label>
+                  {mtrlsourcedata.length > 0 ? (
+                    <select
+                      className="ip-select"
+                      id="delivery"
+                      onChange={selectMtrlSource}
+                      value={delivery}
+                    >
+                      <option value="" disabled selected>
+                        ** Select **
+                      </option>
+                      {mtrlsourcedata.map((mtlsrc) => {
+                        return (
+                          <option
+                            value={mtlsrc["MtrlSource"]}
+                            style={{
+                              fontFamily: "Roboto",
+                              fontSize: "12px",
+                            }}
+                          >
+                            {mtlsrc["MtrlSource"]}
                           </option>
-                          {mtrlsourcedata.map((mtlsrc) => {
-                            return (
-                              <option
-                                value={mtlsrc["MtrlSource"]}
-                                style={{
-                                  fontFamily: "Roboto",
-                                  fontSize: "12px",
-                                }}
-                              >
-                                {mtlsrc["MtrlSource"]}
-                              </option>
-                            );
-                          })}
-                        </select>
-                      ) : (
-                        ""
-                      )}
-                    </Form.Group>
-                  </div>
-                  <div className="col-md-2 mt-5">
-                    {/* <Form.Group
+                        );
+                      })}
+                    </select>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                <div className="col-md-2">
+                  {/* <Form.Group
                       as={Row}
                       className="mt-2"
                       controlId="custcurrent"
@@ -1292,234 +1295,199 @@ function UpdateCustomerDetails() {
                         Current{" "}
                       </FormCheckLabel>
                     </Form.Group> */}
-                    <div className="form-check">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        value=""
-                        id="custcurrent"
-                        onChange={(e) => setCustCurrent(!custcurrent)}
-                        checked={custcurrent}
-                      />
-                      <label
-                        className="form-check-label checkBoxStyle"
-                        htmlFor="flexCheckDefault"
-                      >
-                        Current
-                      </label>
-                    </div>
+                  <div className="d-flex" style={{ gap: "10px" }}>
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="custcurrent"
+                      onChange={(e) => setCustCurrent(!custcurrent)}
+                      checked={custcurrent}
+                    />
+                    <label className="form-label mt-1">Current</label>
                   </div>
                 </div>
               </div>
-              <div
-                className="row mt-2"
-                style={{ marginLeft: "-3px", marginBottom: "50px" }}
-              >
-                {/* <NabTab /> */}
-                <div className="p-2">
-                  <h4 className="form-title  mt-1">Contact Details</h4>
-                  <hr className="horizontal-line" />
+            </div>
+
+            <label className="Out-standing-inv mb-2 ms-2">Contact Details</label>
+
+            <div className="row">
+              <div className="col-md-8">
+                <div
+                  style={{
+                    height: "205px",
+                    overflowY: "scroll",
+                    border: "solid #c0c4c2 1px",
+                  }}
+                >
+                  <Table striped className="table-data border">
+                    <thead className="tableHeaderBGColor tablebody">
+                      <tr className="">
+                        <th className="">Name</th>
+                        <th className="">Designation</th>
+                        <th className="">Dept</th>
+                        <th className="">E Mail</th>
+                        <th className="">Contact No1</th>
+                        <th className="">Contact No2</th>
+                      </tr>
+                    </thead>
+                    <tbody className="tablebody">
+                      {custContactData.map((ccont) => {
+                        console.log(ccont);
+                        return (
+                          <tr
+                            className=""
+                            key={ccont.id}
+                            style={{
+                              backgroundColor:
+                                conid === ccont.ContactID ? "#98A8F8" : "",
+                              cursor: "pointer",
+                            }}
+                            onClick={() => selectItem(ccont)}
+                          >
+                            <td className="">{ccont.conName}</td>
+                            <td className="">{ccont.conDesignation}</td>
+                            <td className="">{ccont.conDept}</td>
+                            <td className="">{ccont.conE_mail}</td>
+                            <td className="">{ccont.conTele_Office}</td>
+                            <td className="">{ccont.conTele_Mobile}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </Table>
+                </div>
+              </div>
+              <div className="col-md-4">
+                <div className="ip-box" style={{ backgroundColor: "#e6e6e6" }}>
+                  <div>
+                    <div className="row">
+                      <div className="col-md-12 d-flex" style={{ gap: "44px" }}>
+                        <label className="form-label">
+                          Name
+                          <span
+                            style={{
+                              color: "#f20707",
+                              fontSize: "16px",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            *
+                          </span>
+                        </label>
+
+                        <input
+                          className="in-fields mt-1"
+                          controlId="conName"
+                          maxLength={30}
+                          onChange={(e) => handleChangeAlpha(e)}
+                          value={conName}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="row">
+                      <div className="col-md-12 d-flex" style={{ gap: "17px" }}>
+                        <label className="form-label">Designation</label>
+                        <input
+                          className="in-fields"
+                          controlId="conDesignation"
+                          onChange={(e) => setDesignation(e.target.value)}
+                          value={conDesignation}
+                        />
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-12 d-flex" style={{ gap: "57px" }}>
+                        <label className="form-label">Dept</label>
+                        <input
+                          className="in-fields"
+                          type="text"
+                          controlId="conDept"
+                          onChange={(e) => setDept(e.target.value)}
+                          value={conDept}
+                        />
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-12 d-flex" style={{ gap: "54px" }}>
+                        <label className="form-label">Email</label>
+                        <input
+                          className="in-fields"
+                          controlId="conE_mail"
+                          onChange={valconemail}
+                          value={conE_mail}
+                        />
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-12 d-flex" style={{ gap: "10px" }}>
+                        <label
+                          className="form-label"
+                          style={{ whiteSpace: "nowrap" }}
+                        >
+                          Contact No 1
+                        </label>
+                        <input
+                          className="in-fields"
+                          type="text"
+                          controlId="conTele_Office"
+                          maxLength={15}
+                          onChange={handleChangePhNo}
+                          value={conTele_Office}
+                        />
+                      </div>
+                    </div>
+                    <div className="row">
+                      <div className="col-md-12 d-flex" style={{ gap: "10px" }}>
+                        <label
+                          className="form-label"
+                          style={{ whiteSpace: "nowrap" }}
+                        >
+                          Contact No 2
+                        </label>
+                        <input
+                          className="in-fields"
+                          type="text"
+                          controlId="conTele_Mobile"
+                          maxLength={15}
+                          onChange={handleChangePhNo1}
+                          value={conTele_Mobile}
+                        />
+                      </div>
+                    </div>
+                  </div>
                   <div className="row">
-                    <div className="col-md-8">
-                      <div
-                        style={{
-                          height: "520px",
-                          overflowY: "scroll",
-                          border: "solid #c0c4c2 1px",
-                        }}
+                    <div className="mb-2" style={{ textAlign: "center" }}>
+                      <button
+                        className="button-style"
+                        disabled={btnnew}
+                        onClick={() => addContactData()}
                       >
-                        <Table striped className="table-data border">
-                          <thead className="tableHeaderBGColor tablebody">
-                            <tr className="">
-                              <th className="">Name</th>
-                              <th className="">Designation</th>
-                              <th className="">Dept</th>
-                              <th className="">E Mail</th>
-                              <th className="">Contact No1</th>
-                              <th className="">Contact No2</th>
-                            </tr>
-                          </thead>
-                          <tbody className="tablebody">
-                            {custContactData.map((ccont) => {
-                              console.log(ccont);
-                              return (
-                                <tr
-                                  className=""
-                                  key={ccont.id}
-                                  style={{
-                                    backgroundColor:
-                                      conid === ccont.ContactID
-                                        ? "#98A8F8"
-                                        : "",
-                                    cursor: "pointer",
-                                  }}
-                                  onClick={() => selectItem(ccont)}
-                                >
-                                  <td className="">{ccont.conName}</td>
-                                  <td className="">{ccont.conDesignation}</td>
-                                  <td className="">{ccont.conDept}</td>
-                                  <td className="">{ccont.conE_mail}</td>
-                                  <td className="">{ccont.conTele_Office}</td>
-                                  <td className="">{ccont.conTele_Mobile}</td>
-                                </tr>
-                              );
-                            })}
-                          </tbody>
-                        </Table>
-                      </div>
-                    </div>
-                    <div className="col-md-4">
-                      <div
-                        className="ip-box"
-                        style={{ backgroundColor: "#e6e6e6" }}
+                        New
+                      </button>
+                      <button
+                        className="button-style"
+                        disabled={btnupd}
+                        onClick={() => updContactData()}
                       >
-                        <div className="row">
-                          <div className="row">
-                            <div className="col-md-12 ">
-                              <FormLabel className="">Name</FormLabel>
-                              <Form.Label
-                                style={{
-                                  color: "#f20707",
-                                  fontSize: "16px",
-                                  fontWeight: "bold",
-                                }}
-                              >
-                                *
-                              </Form.Label>
-                              <input
-                                className="in-fields"
-                                controlId="conName"
-                                maxLength={30}
-                                onChange={(e) => handleChangeAlpha(e)}
-                                value={conName}
-                              />
-                            </div>
-                          </div>
-                          <div className="row">
-                            <div className="col-md-12 ">
-                              <FormLabel className="">Designation</FormLabel>
-                              <input
-                                className="in-fields"
-                                controlId="conDesignation"
-                                onChange={(e) => setDesignation(e.target.value)}
-                                value={conDesignation}
-                              />
-                            </div>
-                          </div>
-                          <div className="row">
-                            <div className="col-md-12 ">
-                              <FormLabel className="">Dept</FormLabel>
-                              <input
-                                className="in-fields"
-                                type="text"
-                                controlId="conDept"
-                                onChange={(e) => setDept(e.target.value)}
-                                value={conDept}
-                              />
-                            </div>
-                          </div>
-                          <div className="row">
-                            <div className="col-md-12 ">
-                              <FormLabel className="">Email</FormLabel>
-                              <input
-                                className="in-fields"
-                                controlId="conE_mail"
-                                onChange={valconemail}
-                                value={conE_mail}
-                              />
-                            </div>
-                          </div>
-                          <div className="row">
-                            <div className="col-md-12 ">
-                              <FormLabel className="">Contact No 1</FormLabel>
-                              <input
-                                className="in-fields"
-                                type="text"
-                                controlId="conTele_Office"
-                                maxLength={15}
-                                onChange={handleChangePhNo}
-                                value={conTele_Office}
-                              />
-                            </div>
-                          </div>
-                          <div className="row">
-                            <div className="col-md-12 ">
-                              <FormLabel className="">Contact No 2</FormLabel>
-                              <input
-                                className="in-fields"
-                                type="text"
-                                controlId="conTele_Mobile"
-                                maxLength={15}
-                                onChange={handleChangePhNo1}
-                                value={conTele_Mobile}
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        <div className="row justify-content-center  ">
-                          <Button
-                            style={{
-                              width: "90px",
-                              height: "39px",
-                              border: "none",
-                              marginRight: "10px",
-                              backgroundColor: "#2b3a55",
-                              color: " #ffffff",
-                              borderRadius: " 5px",
-                              padding: " 3px",
-                              marginTop: "23px",
-                              fontSize: "18px",
-                            }}
-                            disabled={btnnew}
-                            onClick={() => addContactData()}
-                          >
-                            New
-                          </Button>
-                          <Button
-                            style={{
-                              width: "90px",
-                              height: "39px",
-                              border: "none",
-                              marginRight: "10px",
-                              backgroundColor: "#2b3a55",
-                              color: " #ffffff",
-                              borderRadius: " 5px",
-                              padding: " 3px",
-                              marginTop: "23px",
-                              fontSize: "18px",
-                            }}
-                            disabled={btnupd}
-                            onClick={() => updContactData()}
-                          >
-                            Update
-                          </Button>
-                          <Button
-                            style={{
-                              width: "90px",
-                              height: "39px",
-                              border: "none",
-                              marginRight: "10px",
-                              backgroundColor: "#2b3a55",
-                              color: " #ffffff",
-                              borderRadius: " 5px",
-                              padding: " 3px",
-                              marginTop: "23px",
-                              fontSize: "18px",
-                            }}
-                            disabled={btndel}
-                            onClick={() => removeContactData()}
-                          >
-                            Delete
-                          </Button>
-                        </div>
-                      </div>
+                        Update
+                      </button>
+                      <button
+                        className="button-style"
+                        disabled={btndel}
+                        onClick={() => removeContactData()}
+                      >
+                        Delete
+                      </button>
                     </div>
                   </div>
                 </div>
               </div>
-            </Form>
-          </div>
-        </Col>
+            </div>
+          </Form>
+        </div>
       </div>
     </div>
   );

@@ -473,12 +473,13 @@ function Order(props) {
       {/* <BreadcrumbsComponent /> */}
       <h4 className="title ">Customer Order Information</h4>
       {/* <hr className="horizontal-line" /> */}
-      <div style={{ marginLeft: "10px" }}>
+      <div>
         <div className="row">
-          <div className="col-md-6">
-            <Form.Group controlId="CustName">
-              <label className="form-label">Customer</label>
-              <Form.Label
+          <div className="col-md-6 d-flex" style={{ gap: "10px" }}>
+            {/* <Form.Group controlId="CustName"> */}
+            <label className="form-label">
+              Customer
+              <span
                 style={{
                   color: "#f20707",
                   fontSize: "16px",
@@ -486,51 +487,61 @@ function Order(props) {
                 }}
               >
                 *
-              </Form.Label>
-              {custdata.length > 0 ? (
-                // <Form.Select
-                //   className="ip-select "
-                //   controlId="CustName"
-                //   onChange={selectCust}
-                // >
-                //   <option value="" disabled selected>
-                //     {" "}
-                //     Select Customer
-                //   </option>
-                //   {custdata.map((cust) => {
-                //     return (
-                //       <option value={cust["Cust_Code"]}>
-                //         {cust["Cust_name"]}
-                //       </option>
-                //     );
-                //   })}
-                // </Form.Select>
-                <Typeahead
-                  id="basic-example"
-                  style={{ marginTop: "3px" }}
-                  // onChange={selectCust}
-                  options={custdata}
-                  placeholder="Select Customer"
-                  // selected={selected}
-                  /*onInputChange={(label) => {
+              </span>
+            </label>
+
+            {custdata.length > 0 ? (
+              // <Form.Select
+              //   className="ip-select "
+              //   controlId="CustName"
+              //   onChange={selectCust}
+              // >
+              //   <option value="" disabled selected>
+              //     {" "}
+              //     Select Customer
+              //   </option>
+              //   {custdata.map((cust) => {
+              //     return (
+              //       <option value={cust["Cust_Code"]}>
+              //         {cust["Cust_name"]}
+              //       </option>
+              //     );
+              //   })}
+              // </Form.Select>
+              <Typeahead
+                className="ip-select"
+                // id="basic-example"
+                id="CustName"
+                style={{ marginTop: "3px" }}
+                // onChange={selectCust}
+                options={custdata}
+                placeholder="Select Customer"
+                // selected={selected}
+                /*onInputChange={(label) => {
                   console.log("input change :", label);
                 }}
                 onChange={(label) => {
                   console.log("onchange :", label);
                 }}*/
-                  onChange={(label) => selectCust(label)}
-                />
-              ) : (
-                ""
-              )}
-            </Form.Group>
+                onChange={(label) => selectCust(label)}
+              />
+            ) : (
+              ""
+            )}
+            {/* </Form.Group> */}
           </div>{" "}
-          <div className="col-md-2">
+          <div className="col-md-2 d-flex mt-1" style={{ gap: "10px" }}>
             {" "}
             <label className="form-label">Code </label>
-            <input id="custcode" type="text" disabled value={custcode} />
+            <input
+              className="in-field"
+              id="custcode"
+              type="text"
+              disabled
+              value={custcode}
+            />
           </div>
-          <div className="col-md-2 ">
+          <div className="col-md-2 d-flex mt-1" style={{ gap: "10px" }}>
             {" "}
             <label className="form-label">Status </label>
             {/* <input id="custcode" type="text" disabled value={""} /> */}
@@ -558,10 +569,16 @@ function Order(props) {
               )
             ) : (
               // <input id="ordstatus" type="text" disabled value={ordstatus} />
-              <input id="custcode" type="text" disabled value={ordstatus} />
+              <input
+                className="in-field"
+                id="custcode"
+                type="text"
+                disabled
+                value={ordstatus}
+              />
             )}
           </div>
-          <div className="col-md-2 mt-3">
+          <div className="col-md-2">
             {" "}
             <button
               id="btnclose"
@@ -573,8 +590,8 @@ function Order(props) {
             </button>
           </div>
         </div>
-        <div className="row mt-4">
-          <div className="col-md-4 mt-3">
+        <div className="row" style={{ paddingRight: "0px" }}>
+          <div className="col-md-4 mt-2">
             <div
               style={{
                 height: "200px",
@@ -583,7 +600,7 @@ function Order(props) {
             >
               <Table striped className="table-data border ">
                 <thead className="tableHeaderBGColor  tablebody">
-                  <tr>
+                  <tr style={{ whiteSpace: "nowrap" }}>
                     {[
                       "Order No",
                       "Type",
@@ -596,7 +613,7 @@ function Order(props) {
                     })}
                   </tr>
                 </thead>
-                <tbody className="tablebody">
+                <tbody className="tablebody" style={{ whiteSpace: "nowrap" }}>
                   {orderdata != null
                     ? orderdata.map((orders, id) => rendertable(orders, id))
                     : ""}
@@ -604,7 +621,7 @@ function Order(props) {
               </Table>
             </div>
           </div>
-          <div className="col-md-3 mt-3">
+          <div className="col-md-3 mt-2">
             <div
               style={{
                 height: "200px",
@@ -636,7 +653,7 @@ function Order(props) {
               </Table>
             </div>
           </div>
-          <div className="col-md-5 mt-3">
+          <div className="col-md-5 mt-2">
             {" "}
             <div
               style={{
@@ -681,50 +698,51 @@ function Order(props) {
             <Tabs
               defaultActiveKey="orddets"
               id="orderdetails"
-              className="mb-3 mt-3"
+              className="mb-1 mt-1 tab_font"
             >
               <Tab eventKey="orddets" title="Order Details Status">
-                <Row>
-                  <Col xs={12} style={{ height: "320px", overflowY: "scroll" }}>
-                    <Table striped className="table-data border ">
-                      <thead className="tableHeaderBGColor  tablebody">
-                        <tr>
-                          {[
-                            "Dwg Name",
-                            "Operation",
-                            "Mtrl Code",
-                            "Source",
-                            "Qty",
-                            "Scheduled",
-                            "Produced",
-                            "Packed",
-                            "Delivered",
-                            "JWCost",
-                            "MtrlCost",
-                            "SrlStatus",
-                          ].map((h) => {
-                            return <th>{h}</th>;
-                          })}
-                        </tr>
-                      </thead>
-                      <tbody className="tablebody">
-                        {orddetailsdata != null
-                          ? orddetailsdata.map((orddetails) =>
-                              rendertblOrdDets(orddetails)
-                            )
-                          : ""}
-                      </tbody>
-                    </Table>
-                  </Col>
-                </Row>
+                <div style={{ height: "320px", overflowY: "scroll" }}>
+                  <Table striped className="table-data border ">
+                    <thead className="tableHeaderBGColor  tablebody">
+                      <tr>
+                        {[
+                          "Dwg Name",
+                          "Operation",
+                          "Mtrl Code",
+                          "Source",
+                          "Qty",
+                          "Scheduled",
+                          "Produced",
+                          "Packed",
+                          "Delivered",
+                          "JWCost",
+                          "MtrlCost",
+                          "SrlStatus",
+                        ].map((h) => {
+                          return <th>{h}</th>;
+                        })}
+                      </tr>
+                    </thead>
+                    <tbody className="tablebody">
+                      {orddetailsdata != null
+                        ? orddetailsdata.map((orddetails) =>
+                            rendertblOrdDets(orddetails)
+                          )
+                        : ""}
+                    </tbody>
+                  </Table>
+                </div>
               </Tab>
               <Tab
                 eventKey="invlist"
                 title="Invoice List"
                 // style={{ fontFamily: "Roboto", fontSize: "12px" }}
               >
-                <Row classnName="mt-2">
-                  <Col style={{ height: "300px", overflowY: "scroll" }}>
+                <div className="d-flex">
+                  <div
+                    className="col-md-6"
+                    style={{ height: "300px", overflowY: "scroll" }}
+                  >
                     <Table striped className="table-data border ">
                       <thead className="tableHeaderBGColor  tablebody">
                         <tr>
@@ -748,8 +766,9 @@ function Order(props) {
                           : ""}
                       </tbody>
                     </Table>
-                  </Col>
-                  <Col
+                  </div>
+                  <div
+                    className="col-md-6"
                     style={{
                       height: "300px",
                       overflowY: "scroll",
@@ -775,84 +794,80 @@ function Order(props) {
                           : ""}
                       </tbody>
                     </Table>
-                  </Col>
-                </Row>
+                  </div>
+                </div>
               </Tab>
               <Tab eventKey="schdets" title="Schedule Details">
-                <Row classnName="mt-2">
-                  <Col
-                    style={{
-                      height: "300px",
-                      overflowY: "scroll",
-                    }}
-                  >
-                    <Table striped className="table-data border ">
-                      <thead className="tableHeaderBGColor  tablebody">
-                        <tr>
-                          {[
-                            "Dwg Name ",
-                            "Mtrl Code",
-                            "Operation",
-                            "Source",
-                            "Scheduled",
-                            "Programmed",
-                            "Produced",
-                            "Inspected",
-                            "Cleared",
-                            "Packed",
-                            "Delivered",
-                            "Rejected",
-                            "JWCost",
-                            "MtrlCost",
-                          ].map((h) => {
-                            return <th>{h}</th>;
-                          })}
-                        </tr>
-                      </thead>
-                      <tbody className="tablebody">
-                        {schdetsdata != null
-                          ? schdetsdata.map((schdetails) =>
-                              rendertblschDets(schdetails)
-                            )
-                          : ""}
-                      </tbody>
-                    </Table>
-                  </Col>
-                </Row>
+                <div
+                  style={{
+                    height: "300px",
+                    overflowY: "scroll",
+                  }}
+                >
+                  <Table striped className="table-data border ">
+                    <thead className="tableHeaderBGColor  tablebody">
+                      <tr>
+                        {[
+                          "Dwg Name ",
+                          "Mtrl Code",
+                          "Operation",
+                          "Source",
+                          "Scheduled",
+                          "Programmed",
+                          "Produced",
+                          "Inspected",
+                          "Cleared",
+                          "Packed",
+                          "Delivered",
+                          "Rejected",
+                          "JWCost",
+                          "MtrlCost",
+                        ].map((h) => {
+                          return <th>{h}</th>;
+                        })}
+                      </tr>
+                    </thead>
+                    <tbody className="tablebody">
+                      {schdetsdata != null
+                        ? schdetsdata.map((schdetails) =>
+                            rendertblschDets(schdetails)
+                          )
+                        : ""}
+                    </tbody>
+                  </Table>
+                </div>
               </Tab>
               <Tab eventKey="taskpartdets" title="Task Part Details">
-                <Row classnName="mt-2">
-                  <Col
-                    style={{
-                      height: "300px",
-                      overflowY: "scroll",
-                    }}
-                  >
-                    <Table striped className="table-data border ">
-                      <thead className="tableHeaderBGColor  tablebody">
-                        <tr>
-                          {[
-                            "Drawing",
-                            "To Nest",
-                            "Nested",
-                            "Produced",
-                            "Cleared",
-                            "Remarks",
-                          ].map((h) => {
-                            return <th>{h}</th>;
-                          })}
-                        </tr>
-                      </thead>
-                      <tbody className="tablebody">
-                        {taskpartdetsdata != null
-                          ? taskpartdetsdata.map((taskprtdets) =>
-                              rendertbltaskprtDets(taskprtdets)
-                            )
-                          : ""}
-                      </tbody>
-                    </Table>
-                  </Col>
-                </Row>
+                <div
+                  style={{
+                    height: "300px",
+                    overflowY: "scroll",
+                  }}
+                >
+                  <Table striped className="table-data border ">
+                    <thead className="tableHeaderBGColor  tablebody">
+                      <tr>
+                        {[
+                          "Drawing",
+                          "To Nest",
+                          "Nested",
+                          "Produced",
+                          "Cleared",
+                          "Remarks",
+                        ].map((h) => {
+                          return <th>{h}</th>;
+                        })}
+                      </tr>
+                    </thead>
+                    <tbody className="tablebody">
+                      {taskpartdetsdata != null
+                        ? taskpartdetsdata.map((taskprtdets) =>
+                            rendertbltaskprtDets(taskprtdets)
+                          )
+                        : ""}
+                    </tbody>
+                  </Table>
+                </div>
               </Tab>
             </Tabs>
           </div>

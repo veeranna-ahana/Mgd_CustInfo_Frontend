@@ -117,17 +117,21 @@ function DrawingList() {
       <div className="form-style table_top_style">
         <form>
           <div className="row mt-3">
-            <div className="col-md-4 ">
-              <label className="form-label">Name</label>
-              <Form.Label
-                style={{
-                  color: "#f20707",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                }}
-              >
-                *
-              </Form.Label>
+            <div className="col-md-4 d-flex" style={{ gap: "10px" }}>
+              <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+                Name
+                <span
+                  style={{
+                    color: "#f20707",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {" "}
+                  *
+                </span>
+              </label>
+
               {custdata.length > 0 ? (
                 // <Form.Select
                 //   className="ip-select mt-1 "
@@ -147,6 +151,7 @@ function DrawingList() {
                 //   })}
                 // </Form.Select>
                 <Typeahead
+                  className="ip-select"
                   id="basic-example"
                   // onChange={selectCust}
                   options={custdata}
@@ -164,12 +169,19 @@ function DrawingList() {
                 ""
               )}
             </div>
-            <div className="col-md-4 col-sm-12">
+            <div className="col-md-4 d-flex" style={{ gap: "10px" }}>
               {/* <label className="">Branch</label> */}
-              <label className="form-label">Cust Code</label>
-              <input id="custcode" type="text" value={custcode} />
+              <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+                Cust Code
+              </label>
+              <input
+                className="in-field"
+                id="custcode"
+                type="text"
+                value={custcode}
+              />
             </div>
-            <div className="col-md-4 col-sm-12 mt-3">
+            <div className="col-md-4" style={{ marginTop: "-10px" }}>
               <button
                 className="button-style"
                 type="submit"
@@ -184,47 +196,43 @@ function DrawingList() {
       {/* for table */}
       <div>
         {/* <Tables theadData={getHeadings()} tbodyData={data} /> */}
-        <div className="row">
-          <div
-            className="table-data"
-            style={{ height: "350px", overflowY: "scroll" }}
-          >
-            <Table striped className="table-data border">
-              <thead className="tableHeaderBGColor tablebody">
-                <tr
-                  className=""
-                  // style={{ fontFamily: "Roboto", fontSize: "12px" }}
-                >
-                  {[
-                    "Dwg Code",
-                    "Dwg Name",
-                    "Mtrl Code",
-                    "Dxf Location",
-                    "Operation",
-                    "Material Cost",
-                    "Jobwork Cost",
-                    "LOC",
-                    "Holes",
-                    "Weight",
-                  ].map((h) => {
-                    return (
-                      <th
-                        className=""
-                        //   style={{ fontFamily: "Roboto", fontSize: "12px" }}
-                      >
-                        {h}
-                      </th>
-                    );
-                  })}
-                </tr>
-              </thead>
-              <tbody className="tablebody ">
-                {custdwgdata != null
-                  ? custdwgdata.map((custdwg) => rendertable(custdwg))
-                  : ""}
-              </tbody>
-            </Table>
-          </div>
+
+        <div style={{ height: "350px", overflowY: "scroll" }}>
+          <Table striped className="table-data border">
+            <thead className="tableHeaderBGColor tablebody">
+              <tr
+                className=""
+                // style={{ fontFamily: "Roboto", fontSize: "12px" }}
+              >
+                {[
+                  "Dwg Code",
+                  "Dwg Name",
+                  "Mtrl Code",
+                  "Dxf Location",
+                  "Operation",
+                  "Material Cost",
+                  "Jobwork Cost",
+                  "LOC",
+                  "Holes",
+                  "Weight",
+                ].map((h) => {
+                  return (
+                    <th
+                      className=""
+                      //   style={{ fontFamily: "Roboto", fontSize: "12px" }}
+                    >
+                      {h}
+                    </th>
+                  );
+                })}
+              </tr>
+            </thead>
+            <tbody className="tablebody ">
+              {custdwgdata != null
+                ? custdwgdata.map((custdwg) => rendertable(custdwg))
+                : ""}
+            </tbody>
+          </Table>
         </div>
       </div>
     </div>

@@ -802,22 +802,23 @@ function Custinvandpayments() {
           <>
             <div className="addquotecard" id="PaymentandReceipts">
               <div className="row">
-                <div className="col-md-4">
-                  <label className="form-label">Name </label>
-                  <label
-                    style={{
-                      color: "#f20707",
-                      fontSize: "16px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    *
+                <div className="col-md-4 d-flex" style={{ gap: "10px" }}>
+                  <label className="form-label">
+                    Name
+                    <span
+                      style={{
+                        color: "#f20707",
+                        fontSize: "16px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      *
+                    </span>{" "}
                   </label>
 
                   {custdata.length > 0 ? (
                     <select
-                      className="ip-select "
-                      style={{ marginTop: "14px" }}
+                      className="ip-select"
                       id="custname"
                       onChange={selectCust}
                       value={custcode}
@@ -898,9 +899,9 @@ function Custinvandpayments() {
                     ""
                   )}
                 </div>
-                <div className=" col-md-2" style={{ marginRight: "2rem" }}>
-                  <div>
-                    <label className="form-label">Code</label>
+                <div className="col-md-2" style={{ marginRight: "2rem" }}>
+                  <div className="d-flex" style={{ gap: "20px" }}>
+                    <label className="form-label mt-1">Code</label>
                     <span
                       className="outstanding-sum-value"
                       style={{
@@ -913,8 +914,8 @@ function Custinvandpayments() {
                   </div>
                 </div>
                 <div className=" col-md-2" style={{ marginRight: "2rem" }}>
-                  <div>
-                    <label className="form-label">Due</label>
+                  <div className="d-flex" style={{ gap: "10px" }}>
+                    <label className="form-label mt-1">Due</label>
                     <input
                       className="outstanding-sum-value"
                       id="dueAmount"
@@ -933,9 +934,14 @@ function Custinvandpayments() {
                     </span> */}
                   </div>
                 </div>
-                <div className=" col-md-2">
-                  <div>
-                    <label className="form-label">Over Due</label>
+                <div className="col-md-2">
+                  <div className="d-flex" style={{ gap: "10px" }}>
+                    <label
+                      className="form-label mt-1"
+                      style={{ whiteSpace: "nowrap" }}
+                    >
+                      Over Due
+                    </label>
                     <input
                       className="outstanding-sum-value"
                       id="overDueAmt"
@@ -956,18 +962,11 @@ function Custinvandpayments() {
                 </div>
               </div>
 
-              <div className=" row mt-2">
-                <div
-                  style={{
-                    paddingLeft: "520px",
-                    display: "flex",
-                    justifyContent: "space-evenly",
-                  }}
-                >
+              <div className="row">
+                <div className="col-md-12">
                   <button
                     id="btnshowInvoice"
                     className="button-style"
-                    style={{}}
                     onClick={() => showInvoice(0)}
                   >
                     Show Invoice{" "}
@@ -975,7 +974,6 @@ function Custinvandpayments() {
                   <button
                     id="btndueReport"
                     className="button-style"
-                    style={{}}
                     onClick={() => showDueReport()}
                   >
                     Due Report{" "}
@@ -983,52 +981,48 @@ function Custinvandpayments() {
                   <button
                     id="btncustdwgclose"
                     className="button-style"
-                    style={{}}
                     onClick={() => navigate("/customer")}
                   >
                     Close{" "}
                   </button>
-                  <label style={{ flex: "2.5" }}></label>
                 </div>
               </div>
 
-              <div className="row mt-4">
+              <div>
                 <Tabs
                   defaultActiveKey="duedets"
                   id="custinvdetails"
-                  className="mb-1  tab_font mt-3"
+                  className="mb-1  tab_font mt-1"
                 >
                   <Tab eventKey="duedets" title="Due List">
-                    <div className="row">
-                      <div style={{ height: "260px", overflowY: "scroll" }}>
-                        <Table striped className="table-data border ">
-                          <thead className="tableHeaderBGColor tablebody">
-                            <tr>
-                              {[
-                                "Inv Type",
-                                "PN No",
-                                "Inv No",
-                                "Date",
-                                "PO No",
-                                "Inv Value",
-                                "Payment Recd",
-                                "Balance",
-                                "Payment Date",
-                                "Due Days",
-                              ].map((h) => {
-                                return <th>{h}</th>;
-                              })}
-                            </tr>
-                          </thead>
-                          <tbody className="tablebody">
-                            {duelistdata != null
-                              ? duelistdata.map((duelist, id) =>
-                                  rendertable(duelist, id, "DUE")
-                                )
-                              : ""}
-                          </tbody>
-                        </Table>
-                      </div>
+                    <div style={{ height: "260px", overflowY: "scroll" }}>
+                      <Table striped className="table-data border ">
+                        <thead className="tableHeaderBGColor tablebody">
+                          <tr>
+                            {[
+                              "Inv Type",
+                              "PN No",
+                              "Inv No",
+                              "Date",
+                              "PO No",
+                              "Inv Value",
+                              "Payment Recd",
+                              "Balance",
+                              "Payment Date",
+                              "Due Days",
+                            ].map((h) => {
+                              return <th>{h}</th>;
+                            })}
+                          </tr>
+                        </thead>
+                        <tbody className="tablebody">
+                          {duelistdata != null
+                            ? duelistdata.map((duelist, id) =>
+                                rendertable(duelist, id, "DUE")
+                              )
+                            : ""}
+                        </tbody>
+                      </Table>
                     </div>
                   </Tab>
                   <Tab eventKey="overduedets" title="Over Due">
@@ -1198,125 +1192,154 @@ function Custinvandpayments() {
         ) : null}
         {showInvoiceState ? (
           <div id="ShowInvoice">
-            <h4 className="form-title  mt-2">Consignee Address</h4>
-            <hr className="horizontal-line" />
+            <label className="Out-standing-inv ms-2">Consignee Address</label>
             <Form>
+              <div className="row mt-2">
+                <div className="col-md-3 d-flex" style={{ gap: "22px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Inv Type
+                  </label>
+                  <input
+                    className="in-field"
+                    type="text"
+                    id="invtype"
+                    value={
+                      selectedInvoice == null
+                        ? ""
+                        : selectedInvoice["DC_InvType"]
+                    }
+                  />
+                </div>
+                <div className="col-md-3 d-flex" style={{ gap: "10px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Invoice No
+                  </label>
+                  <input
+                    className="in-field"
+                    type="text"
+                    id="dcinvno"
+                    value={
+                      selectedInvoice == null ? "" : selectedInvoice["Inv_No"]
+                    }
+                  />
+                </div>
+                <div className="col-md-3 d-flex" style={{ gap: "62px" }}>
+                  <label className="form-label">Date</label>
+                  <input
+                    className="in-field"
+                    type="text"
+                    id="invdate"
+                    disabled
+                    value={
+                      selectedInvoice["Inv_Date"] == null
+                        ? ""
+                        : selectedInvoice["Inv_Date"]
+                    }
+                  />
+                </div>
+                <div className="col-md-3 d-flex" style={{ gap: "35px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    PN No
+                  </label>
+                  <input
+                    className="in-field"
+                    type="text"
+                    id="pnno"
+                    value={
+                      selectedInvoice == null ? "" : selectedInvoice["DC_No"]
+                    }
+                  />
+                </div>
+              </div>
+
               <div className="row">
-                <div className="row">
-                  <div className="col-md-3">
-                    <FormLabel>Inv Type</FormLabel>
-                    <input
-                      type="text"
-                      id="invtype"
-                      value={
-                        selectedInvoice == null
-                          ? ""
-                          : selectedInvoice["DC_InvType"]
-                      }
-                    />
-                  </div>
-                  <div className="col-md-3">
-                    <FormLabel>Invoice No</FormLabel>
-                    <input
-                      type="text"
-                      id="dcinvno"
-                      value={
-                        selectedInvoice == null ? "" : selectedInvoice["Inv_No"]
-                      }
-                    />
-                  </div>
-                  <div className="col-md-3">
-                    <FormLabel>Date</FormLabel>
-                    <input
-                      type="text"
-                      id="invdate"
-                      disabled
-                      value={
-                        selectedInvoice["Inv_Date"] == null
-                          ? ""
-                          : selectedInvoice["Inv_Date"]
-                      }
-                    />
-                  </div>
-                  <div className="col-md-3">
-                    <FormLabel>PN No</FormLabel>
-                    <input
-                      type="text"
-                      id="pnno"
-                      value={
-                        selectedInvoice == null ? "" : selectedInvoice["DC_No"]
-                      }
-                    />
-                  </div>
+                <div className="col-md-6 d-flex" style={{ gap: "10px" }}>
+                  <label className="form-label">Consignee</label>
+                  <input
+                    className="in-field"
+                    type="text"
+                    id="consignee"
+                    value={
+                      selectedInvoice == null
+                        ? ""
+                        : selectedInvoice["Cust_Name"]
+                    }
+                  />
+                </div>
+                <div className="col-md-3 d-flex" style={{ gap: "51px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    PO No
+                  </label>
+                  <input
+                    className="in-field"
+                    type="text"
+                    id="pono"
+                    value={
+                      selectedInvoice == null ? "" : selectedInvoice["PO_No"]
+                    }
+                  />
+                </div>
+                <div className="col-md-3 d-flex" style={{ gap: "45px" }}>
+                  <label className="form-label">Date</label>
+                  <input
+                    className="in-field"
+                    type="text"
+                    id="pndate"
+                    value={
+                      selectedInvoice == null ? "" : selectedInvoice["DC_Date"]
+                    }
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-3 d-flex" style={{ gap: "45px" }}>
+                  <label className="form-label">City</label>
+                  <input
+                    className="in-field"
+                    type="text"
+                    id="custcity"
+                    value={
+                      selectedInvoice == null
+                        ? ""
+                        : selectedInvoice["Cust_Place"]
+                    }
+                  />
+                </div>
+                <div className="col-md-3 d-flex" style={{ gap: "23px" }}>
+                  <label className="form-label">Pincode</label>
+
+                  <input
+                    className="in-field"
+                    type="text"
+                    id="pincode"
+                    value={
+                      selectedInvoice == null ? "" : selectedInvoice["PIN_Code"]
+                    }
+                  />
                 </div>
 
-                <div className="row">
-                  <div className="col-md-6">
-                    {" "}
-                    <FormLabel>Consignee</FormLabel>
+                <div className="col-md-3 d-flex" style={{ gap: "5px" }}>
+                  <div className="col-md-7 d-flex" style={{ gap: "8px" }}>
+                    <label
+                      className="form-label"
+                      style={{ whiteSpace: "nowrap" }}
+                    >
+                      Dispatch Date
+                    </label>
                     <input
-                      type="text"
-                      id="consignee"
-                      value={
-                        selectedInvoice == null
-                          ? ""
-                          : selectedInvoice["Cust_Name"]
-                      }
-                    />
-                  </div>
-                  <div className="col-md-3">
-                    <FormLabel>PO No</FormLabel>
-                    <input
-                      type="text"
-                      id="pono"
-                      value={
-                        selectedInvoice == null ? "" : selectedInvoice["PO_No"]
-                      }
-                    />
-                  </div>
-                  <div className="col-md-3">
-                    <FormLabel>Date</FormLabel>
-                    <input
-                      type="text"
-                      id="pndate"
-                      value={
-                        selectedInvoice == null
-                          ? ""
-                          : selectedInvoice["DC_Date"]
-                      }
-                    />
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-3">
-                    <FormLabel>City</FormLabel>
-                    <input
-                      type="text"
-                      id="custcity"
-                      value={
-                        selectedInvoice == null
-                          ? ""
-                          : selectedInvoice["Cust_Place"]
-                      }
-                    />
-                  </div>
-                  <div className="col-md-3">
-                    <FormLabel>Pincode</FormLabel>
-
-                    <input
-                      type="text"
-                      id="pincode"
-                      value={
-                        selectedInvoice == null
-                          ? ""
-                          : selectedInvoice["PIN_Code"]
-                      }
-                    />
-                  </div>
-
-                  <div className="col-md-2">
-                    <FormLabel>Dispatch Date</FormLabel>
-                    <input
+                      className="in-field"
                       type="text"
                       id="dispatchdate"
                       value={
@@ -1326,10 +1349,10 @@ function Custinvandpayments() {
                       }
                     />
                   </div>
-                  <div className="col-md-1">
-                    {" "}
-                    <FormLabel> Mode</FormLabel>
+                  <div className="col-md-5 d-flex" style={{ gap: "8px" }}>
+                    <label className="form-label"> Mode</label>
                     <input
+                      className="in-field"
                       type="text"
                       id="dispatchmode"
                       value={
@@ -1339,334 +1362,391 @@ function Custinvandpayments() {
                       }
                     />
                   </div>
-                  <div className="col-md-3">
-                    <FormLabel>Vehicle No</FormLabel>
-                    <input
-                      type="text"
-                      id="dispatchdate"
-                      value={
-                        selectedInvoice == null ? "" : selectedInvoice["VehNo"]
-                      }
-                    />
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-3 ">
-                    <FormLabel>State</FormLabel>
-
-                    <input
-                      type="text"
-                      id="cstate"
-                      className="mt-4"
-                      value={
-                        selectedInvoice == null
-                          ? ""
-                          : selectedInvoice["Cust_State"]
-                      }
-                    />
-                  </div>
-                  <div className="col-md-3">
-                    <FormLabel>Address</FormLabel>
-                    <textarea
-                      type="textarea"
-                      id="address"
-                      rows={3}
-                      value={
-                        selectedInvoice == null
-                          ? ""
-                          : selectedInvoice["Cust_Address"]
-                      }
-                      style={{
-                        width: "290px",
-                        height: "55px",
-                        padding: "6px",
-                      }}
-                    />
-                  </div>
-                  <div className="col-md-3">
-                    <FormLabel>Delivery</FormLabel>
-                    <textarea
-                      type="textarea"
-                      id="address"
-                      rows={3}
-                      value={
-                        selectedInvoice == null
-                          ? ""
-                          : selectedInvoice["Del_Address"]
-                      }
-                      style={{
-                        width: "290px",
-                        height: "55px",
-                        padding: "6px",
-                      }}
-                    />
-                  </div>
-                  <div className="col-md-3  ">
-                    <button
-                      className="button-style mt-5"
-                      style={{ marginLeft: "65px" }}
-                      onClick={() => showPaymentandReceipts(true)}
-                    >
-                      Close
-                    </button>
-                  </div>
                 </div>
 
-                {/* </Tab>
-                                <Tab eventKey="commercialinfo" title="Commercial Info" style={{ height: '200px', fontFamily: 'Roboto', fontSize: '12px', fontWeight: 'bold' }}>
-                    
-                    <Col xs={12}> */}
-                <h4 className="form-title  mt-4">Commercial Info</h4>
-                <hr className="horizontal-line" />
+                <div className="col-md-3 d-flex" style={{ gap: "10px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Vehicle No
+                  </label>
+                  <input
+                    className="in-field"
+                    type="text"
+                    id="dispatchdate"
+                    value={
+                      selectedInvoice == null ? "" : selectedInvoice["VehNo"]
+                    }
+                  />
+                </div>
+              </div>
+              <div className="row mt-1">
+                <div className="col-md-3 d-flex" style={{ gap: "38px" }}>
+                  <label className="form-label">State</label>
 
-                <div className="row">
-                  <div className="col-md-3">
-                    <FormLabel>Net Value</FormLabel>
-                    <input
-                      type="text"
-                      id="dispatchdate"
-                      value={
-                        selectedInvoice == null
-                          ? ""
-                          : selectedInvoice["Net_Total"]
-                      }
-                    />
-                  </div>
-                  <div className="col-md-3">
-                    {" "}
-                    <FormLabel>Grand Total</FormLabel>
-                    <input
-                      type="text"
-                      id="dispatchmode"
-                      value={
-                        selectedInvoice == null
-                          ? ""
-                          : selectedInvoice["GrandTotal"]
-                      }
-                    />
-                  </div>
-                  <div className="col-md-3">
-                    <FormLabel>Mtrl Value</FormLabel>
-                    <input
-                      type="text"
-                      id="mtrlchg"
-                      value={
-                        selectedInvoice == null
-                          ? ""
-                          : selectedInvoice["MtrlChg"]
-                      }
-                    />
-                  </div>
-                  <div className="col-md-3">
-                    <FormLabel>Received</FormLabel>
-                    <input
-                      type="text"
-                      id="received"
-                      value={
-                        selectedInvoice == null ? "" : selectedInvoice["0.00"]
-                      }
-                    />
-                  </div>
+                  <input
+                    className="in-field"
+                    type="text"
+                    id="cstate"
+                    value={
+                      selectedInvoice == null
+                        ? ""
+                        : selectedInvoice["Cust_State"]
+                    }
+                  />
                 </div>
-                <div className="row">
-                  <div className="col-md-3">
-                    <FormLabel>Discount</FormLabel>
-                    <input
-                      type="text"
-                      id="discount"
-                      value={
-                        selectedInvoice == null
-                          ? ""
-                          : selectedInvoice["Discount"]
-                      }
-                    />
-                  </div>
-                  <div className="col-md-3">
-                    <FormLabel>Balance</FormLabel>
-                    <input
-                      type="text"
-                      id="grandtotal"
-                      value={
-                        selectedInvoice == null
-                          ? ""
-                          : selectedInvoice["GrandTotal"]
-                      }
-                    />
-                  </div>
-                  <div className="col-md-3">
-                    {" "}
-                    <FormLabel>Assessible Value</FormLabel>
-                    <input
-                      type="text"
-                      id="assesiblevalue"
-                      value={
-                        selectedInvoice == null
-                          ? ""
-                          : selectedInvoice["AssessableValue"]
-                      }
-                    />
-                  </div>
-                  <div className="col-md-3">
-                    {" "}
-                    <FormLabel>Due Days</FormLabel>
-                    <input
-                      type="text"
-                      id="duedays"
-                      value={
-                        selectedInvoice == null
-                          ? ""
-                          : selectedInvoice["DueDays"]
-                      }
-                    />
-                  </div>
+                <div className="col-md-3 d-flex" style={{ gap: "22px" }}>
+                  <label className="form-label">Address</label>
+                  <textarea
+                    className="in-field"
+                    type="textarea"
+                    id="address"
+                    rows={3}
+                    value={
+                      selectedInvoice == null
+                        ? ""
+                        : selectedInvoice["Cust_Address"]
+                    }
+                    style={{
+                      width: "290px",
+                      height: "55px",
+                      padding: "6px",
+                    }}
+                  />
                 </div>
-                <div className="row">
-                  <div className="col-md-3">
-                    {" "}
-                    <FormLabel>Delivery Charges</FormLabel>
-                    <input
-                      type="text"
-                      id="delchg"
-                      value={
-                        selectedInvoice == null
-                          ? ""
-                          : selectedInvoice["Del_Chg"]
-                      }
-                    />
-                  </div>
-                  <div className="col-md-3">
-                    <FormLabel>Payment Terms</FormLabel>
-                    <input
-                      type="text"
-                      id="paymentterms"
-                      value={
-                        selectedInvoice == null
-                          ? ""
-                          : selectedInvoice["PaymentTerms"]
-                      }
-                    />
-                  </div>
-                  <div className="col-md-3">
-                    {" "}
-                    <FormLabel>Total Taxes</FormLabel>
-                    <input
-                      type="text"
-                      id="delchg"
-                      value={
-                        selectedInvoice == null
-                          ? ""
-                          : selectedInvoice["TaxAmount"]
-                      }
-                    />
-                  </div>
-                  <div className="col-md-3">
-                    <FormLabel>Payment Date</FormLabel>
-                    <input
-                      type="text"
-                      id="paymentdate"
-                      value={
-                        selectedInvoice == null
-                          ? ""
-                          : selectedInvoice["PaymentDate"]
-                      }
-                    />
-                  </div>
+                <div className="col-md-3 d-flex" style={{ gap: "40px" }}>
+                  <label className="form-label">Delivery</label>
+                  <textarea
+                    className="in-field"
+                    type="textarea"
+                    id="address"
+                    rows={3}
+                    value={
+                      selectedInvoice == null
+                        ? ""
+                        : selectedInvoice["Del_Address"]
+                    }
+                    style={{
+                      width: "290px",
+                      height: "55px",
+                      padding: "6px",
+                    }}
+                  />
                 </div>
-                <div className="row">
-                  <div className="col-md-3">
-                    {" "}
-                    <FormLabel>Invoice Total</FormLabel>
-                    <input
-                      type="text"
-                      id="invtotal"
-                      value={
-                        selectedInvoice == null
-                          ? ""
-                          : selectedInvoice["InvTotal"]
-                      }
-                    />
-                  </div>
-                  <div className="col-md-3">
-                    <FormLabel>Round Off</FormLabel>
-                    <input
-                      type="text"
-                      id="roundoff"
-                      value={
-                        selectedInvoice == null
-                          ? ""
-                          : selectedInvoice["Round_Off"]
-                      }
-                    />
-                  </div>
-                  <div className="col-md-6">
-                    <FormLabel>Remarks</FormLabel>
-                    <input
-                      type="textarea"
-                      id="remarks"
-                      rows={1}
-                      value={
-                        selectedInvoice == null
-                          ? ""
-                          : selectedInvoice["Remarks"]
-                      }
-                    />
-                  </div>
+                <div className="col-md-3">
+                  <button
+                    style={{ float: "right" }}
+                    className="button-style"
+                    onClick={() => showPaymentandReceipts(true)}
+                  >
+                    Close
+                  </button>
                 </div>
+              </div>
 
-                <div className="mt-4">
-                  <div className="row">
-                    <div className="col-md-7">
-                      <div style={{ height: "280px", overflowY: "scroll" }}>
-                        <Table striped className="table-data border ">
-                          <thead className="tableHeaderBGColor tablebody">
-                            <tr>
-                              {[
-                                "Dwg No / Part No",
-                                "Material",
-                                "Qty",
-                                "Mtrl Rate",
-                                "JW Rate",
-                                "Total",
-                              ].map((h) => {
-                                return <th>{h}</th>;
-                              })}
-                            </tr>
-                          </thead>
-                          <tbody className="tablebody">
-                            {dlinvformdata != null
-                              ? dlinvformdata.map((dldwgrec) =>
-                                  rendertbldwg(dldwgrec)
-                                )
-                              : ""}
-                          </tbody>
-                        </Table>
-                      </div>
+              <label className="Out-standing-inv ms-2">Commercial Info</label>
+
+              <div className="row mt-1">
+                <div className="col-md-3 d-flex" style={{ gap: "52px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Net Value
+                  </label>
+                  <input
+                    className="in-field"
+                    type="text"
+                    id="dispatchdate"
+                    value={
+                      selectedInvoice == null
+                        ? ""
+                        : selectedInvoice["Net_Total"]
+                    }
+                  />
+                </div>
+                <div className="col-md-3 d-flex" style={{ gap: "33px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Grand Total
+                  </label>
+                  <input
+                    className="in-field"
+                    type="text"
+                    id="dispatchmode"
+                    value={
+                      selectedInvoice == null
+                        ? ""
+                        : selectedInvoice["GrandTotal"]
+                    }
+                  />
+                </div>
+                <div className="col-md-3 d-flex" style={{ gap: "43px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Mtrl Value
+                  </label>
+                  <input
+                    className="in-field"
+                    type="text"
+                    id="mtrlchg"
+                    value={
+                      selectedInvoice == null ? "" : selectedInvoice["MtrlChg"]
+                    }
+                  />
+                </div>
+                <div className="col-md-3 d-flex" style={{ gap: "41px" }}>
+                  <label className="form-label">Received</label>
+                  <input
+                    className="in-field"
+                    type="text"
+                    id="received"
+                    value={
+                      selectedInvoice == null ? "" : selectedInvoice["0.00"]
+                    }
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-3 d-flex" style={{ gap: "56px" }}>
+                  <label className="form-label">Discount</label>
+                  <input
+                    className="in-field"
+                    type="text"
+                    id="discount"
+                    value={
+                      selectedInvoice == null ? "" : selectedInvoice["Discount"]
+                    }
+                  />
+                </div>
+                <div className="col-md-3 d-flex" style={{ gap: "54px" }}>
+                  <label className="form-label">Balance</label>
+                  <input
+                    className="in-field"
+                    type="text"
+                    id="grandtotal"
+                    value={
+                      selectedInvoice == null
+                        ? ""
+                        : selectedInvoice["GrandTotal"]
+                    }
+                  />
+                </div>
+                <div className="col-md-3 d-flex" style={{ gap: "10px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Assessible Value
+                  </label>
+                  <input
+                    className="in-field"
+                    type="text"
+                    id="assesiblevalue"
+                    value={
+                      selectedInvoice == null
+                        ? ""
+                        : selectedInvoice["AssessableValue"]
+                    }
+                  />
+                </div>
+                <div className="col-md-3 d-flex" style={{ gap: "37px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Due Days
+                  </label>
+                  <input
+                    className="in-field"
+                    type="text"
+                    id="duedays"
+                    value={
+                      selectedInvoice == null ? "" : selectedInvoice["DueDays"]
+                    }
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-3 d-flex" style={{ gap: "10px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Delivery Charges
+                  </label>
+                  <input
+                    className="in-field"
+                    type="text"
+                    id="delchg"
+                    value={
+                      selectedInvoice == null ? "" : selectedInvoice["Del_Chg"]
+                    }
+                  />
+                </div>
+                <div className="col-md-3 d-flex" style={{ gap: "10px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Payment Terms
+                  </label>
+                  <input
+                    className="in-field"
+                    type="text"
+                    id="paymentterms"
+                    value={
+                      selectedInvoice == null
+                        ? ""
+                        : selectedInvoice["PaymentTerms"]
+                    }
+                  />
+                </div>
+                <div className="col-md-3 d-flex" style={{ gap: "38px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Total Taxes
+                  </label>
+                  <input
+                    className="in-field"
+                    type="text"
+                    id="delchg"
+                    value={
+                      selectedInvoice == null
+                        ? ""
+                        : selectedInvoice["TaxAmount"]
+                    }
+                  />
+                </div>
+                <div className="col-md-3 d-flex" style={{ gap: "10px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Payment Date
+                  </label>
+                  <input
+                    className="in-field"
+                    type="text"
+                    id="paymentdate"
+                    value={
+                      selectedInvoice == null
+                        ? ""
+                        : selectedInvoice["PaymentDate"]
+                    }
+                  />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-3 d-flex" style={{ gap: "33px" }}>
+                  {" "}
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Invoice Total
+                  </label>
+                  <input
+                    className="in-field"
+                    type="text"
+                    id="invtotal"
+                    value={
+                      selectedInvoice == null ? "" : selectedInvoice["InvTotal"]
+                    }
+                  />
+                </div>
+                <div className="col-md-3 d-flex" style={{ gap: "37px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Round Off
+                  </label>
+                  <input
+                    className="in-field"
+                    type="text"
+                    id="roundoff"
+                    value={
+                      selectedInvoice == null
+                        ? ""
+                        : selectedInvoice["Round_Off"]
+                    }
+                  />
+                </div>
+                <div className="col-md-6 d-flex" style={{ gap: "50px" }}>
+                  <label className="form-label">Remarks</label>
+                  <input
+                    className="in-field"
+                    type="textarea"
+                    id="remarks"
+                    rows={1}
+                    value={
+                      selectedInvoice == null ? "" : selectedInvoice["Remarks"]
+                    }
+                  />
+                </div>
+              </div>
+
+              <div className="mt-1">
+                <div className="row">
+                  <div className="col-md-7">
+                    <div style={{ height: "150px", overflowY: "scroll" }}>
+                      <Table striped className="table-data border ">
+                        <thead className="tableHeaderBGColor tablebody">
+                          <tr>
+                            {[
+                              "Dwg No / Part No",
+                              "Material",
+                              "Qty",
+                              "Mtrl Rate",
+                              "JW Rate",
+                              "Total",
+                            ].map((h) => {
+                              return <th>{h}</th>;
+                            })}
+                          </tr>
+                        </thead>
+                        <tbody className="tablebody">
+                          {dlinvformdata != null
+                            ? dlinvformdata.map((dldwgrec) =>
+                                rendertbldwg(dldwgrec)
+                              )
+                            : ""}
+                        </tbody>
+                      </Table>
                     </div>
-                    <div className="col-md-5">
-                      {" "}
-                      <div style={{ height: "280px", overflowY: "scroll" }}>
-                        <Table striped className="table-data border ">
-                          <thead className="tableHeaderBGColor tablebody">
-                            <tr>
-                              {[
-                                "Tax Name",
-                                "Taxable Amount",
-                                "Tax Percent",
-                                "Tax Amount",
-                              ].map((h) => {
-                                return <th>{h}</th>;
-                              })}
-                            </tr>
-                          </thead>
-                          <tbody className="tablebody">
-                            {dlinvformtaxdetsdata != null
-                              ? dlinvformtaxdetsdata.map((dlinvtaxrec) =>
-                                  rendertbltax(dlinvtaxrec)
-                                )
-                              : ""}
-                          </tbody>
-                        </Table>
-                      </div>
+                  </div>
+                  <div className="col-md-5">
+                    {" "}
+                    <div style={{ height: "150px", overflowY: "scroll" }}>
+                      <Table striped className="table-data border ">
+                        <thead className="tableHeaderBGColor tablebody">
+                          <tr>
+                            {[
+                              "Tax Name",
+                              "Taxable Amount",
+                              "Tax Percent",
+                              "Tax Amount",
+                            ].map((h) => {
+                              return <th>{h}</th>;
+                            })}
+                          </tr>
+                        </thead>
+                        <tbody className="tablebody">
+                          {dlinvformtaxdetsdata != null
+                            ? dlinvformtaxdetsdata.map((dlinvtaxrec) =>
+                                rendertbltax(dlinvtaxrec)
+                              )
+                            : ""}
+                        </tbody>
+                      </Table>
                     </div>
                   </div>
                 </div>
@@ -1678,26 +1758,26 @@ function Custinvandpayments() {
         )}
         {showDueReportState ? (
           <div id="ShowDueReport">
-            <h4 className="form-title mt-2 ">
-              {" "}
+            <label className="Out-standing-inv">
               List of Invoices Due for Payment
-            </h4>
-            <hr className="horizontal-line" />
-            <div className="row justify-content-end mb-3  ">
-              <button
-                className="button-style"
-                style={{ width: "150px" }}
-                onClick={() => printDueReport()}
-              >
-                Print
-              </button>
-              <button
-                className="button-style"
-                style={{ width: "150px" }}
-                onClick={() => closeDueReport()}
-              >
-                Close
-              </button>
+            </label>
+            <div className="row mb-1">
+              <div className="col-md-12">
+                <button
+                  style={{ float: "right" }}
+                  className="button-style"
+                  onClick={() => printDueReport()}
+                >
+                  Print
+                </button>
+                <button
+                  style={{ float: "right" }}
+                  className="button-style"
+                  onClick={() => closeDueReport()}
+                >
+                  Close
+                </button>
+              </div>
             </div>
 
             <Col

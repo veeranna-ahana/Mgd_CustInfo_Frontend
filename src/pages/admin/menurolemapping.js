@@ -113,88 +113,84 @@ function Menurolemapping() {
 
         <div className="form-style">
           <Form onSubmit={savemenuroles} autoComplete="off">
-            <div className="row mt-2">
-              <div className="col-md-4 mb-3">
-                <Form.Group className="mt-1">
-                  <FormLabel>Role</FormLabel>
-                  {rolesdata.length > 0 ? (
-                    <select
-                      className="ip-select"
-                      id="role"
-                      onChange={selectRole}
-                      required
-                    >
-                      <option value="" disabled selected>
-                        {" "}
-                        Select Role{" "}
-                      </option>
-                      {rolesdata.map((rles) => {
-                        return (
-                          <option
-                            style={{ fontFamily: "Roboto", fontSize: "12px" }}
-                            value={rles["Role"]}
-                          >
-                            {rles["Role"]}
-                          </option>
-                        );
-                      })}
-                    </select>
-                  ) : (
-                    ""
-                  )}
-                </Form.Group>
+            <div className="row">
+              <div className="col-md-4 d-flex" style={{ gap: "10px" }}>
+                <label className="form-label">Role</label>
+                {rolesdata.length > 0 ? (
+                  <select
+                    className="ip-select"
+                    id="role"
+                    onChange={selectRole}
+                    required
+                  >
+                    <option value="" disabled selected>
+                      {" "}
+                      Select Role{" "}
+                    </option>
+                    {rolesdata.map((rles) => {
+                      return (
+                        <option
+                          style={{ fontFamily: "Roboto", fontSize: "12px" }}
+                          value={rles["Role"]}
+                        >
+                          {rles["Role"]}
+                        </option>
+                      );
+                    })}
+                  </select>
+                ) : (
+                  ""
+                )}
               </div>
-              <div className="col-md-4 mb-3">
-                <Form.Group className="mt-3" style={{ display: "flex" }}>
+              <div className="col-md-4 mb-1">
+                <Form.Group className="" style={{ display: "flex" }}>
                   <button className="button-style" type="submit">
                     Save
                   </button>
                 </Form.Group>
               </div>
             </div>
-            <Row className="mb-1">
-              <div style={{ overflowY: "scroll", maxHeight: "390px" }}>
-                <Table striped className="table-data border">
-                  <thead className="tableHeaderBGColor tablebody">
-                    <tr>
-                      {["Select", "MenuName", "Details"].map((h) => {
-                        return <th>{h}</th>;
-                      })}
-                    </tr>
-                  </thead>
-                  <tbody className="tablebody">
-                    {menusdata &&
-                      !!counter &&
-                      menusdata.map((selmenus, id) => {
-                        return (
-                          <tr
-                            style={{
-                              cursor: "pointer",
-                            }}
-                            id={id}
-                          >
-                            <td>
-                              <input
-                                type="checkbox"
-                                checked={checkselected(selmenus["MenuName"])}
-                                onChange={(e) =>
-                                  markchecked(e, selmenus["MenuName"])
-                                }
-                              />
-                            </td>
-                            <td>{selmenus["MenuName"]}</td>
-                            <td>{selmenus["MenuUrl"]}</td>
-                          </tr>
-                        );
-                      })}
-                  </tbody>
-                </Table>
-              </div>
-            </Row>
+
+            <div style={{ overflowY: "scroll", maxHeight: "350px" }}>
+              <Table striped className="table-data border">
+                <thead className="tableHeaderBGColor tablebody">
+                  <tr>
+                    {["Select", "MenuName", "Details"].map((h) => {
+                      return <th>{h}</th>;
+                    })}
+                  </tr>
+                </thead>
+                <tbody className="tablebody">
+                  {menusdata &&
+                    !!counter &&
+                    menusdata.map((selmenus, id) => {
+                      return (
+                        <tr
+                          style={{
+                            cursor: "pointer",
+                          }}
+                          id={id}
+                        >
+                          <td>
+                            <input
+                              type="checkbox"
+                              checked={checkselected(selmenus["MenuName"])}
+                              onChange={(e) =>
+                                markchecked(e, selmenus["MenuName"])
+                              }
+                            />
+                          </td>
+                          <td>{selmenus["MenuName"]}</td>
+                          <td>{selmenus["MenuUrl"]}</td>
+                        </tr>
+                      );
+                    })}
+                </tbody>
+              </Table>
+            </div>
           </Form>
         </div>
       </div>
-      );
     </div>
   );
 }
