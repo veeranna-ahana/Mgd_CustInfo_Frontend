@@ -239,10 +239,11 @@ function CreateCustomer() {
       <h4 className="title">Customer Creator Form</h4>
       <div className="form-style">
         <Form onSubmit={submitSave} autoComplete="off">
-          <div className="row mt-3">
-            <div className="col-md-4">
+          <div className="row">
+            <div className="col-md-4 d-flex" style={{gap:'10px'}}>
               <label className="form-label">Name </label>
               <input
+                className="in-field"
                 id="newCustName"
                 type="text"
                 placeholder="Enter Customer Name"
@@ -252,9 +253,10 @@ function CreateCustomer() {
                 onChange={(e) => searchCustomer(e)}
               />
             </div>
-            <div className="col-md-4">
+            <div className="col-md-4 d-flex" style={{gap:'10px'}}>
               <label className="form-label">Branch </label>
               <input
+                className="in-field"
                 id="branchName"
                 type="text"
                 placeholder="Enter Branch Name"
@@ -263,26 +265,25 @@ function CreateCustomer() {
                 value={branchName}
               />
             </div>
-            <div className="col-md-4 mt-3">
+            <div className="col-md-4">
               <button id="btnnewcustomer" className="button-style">
                 Create Customer
               </button>
             </div>
           </div>
 
-          <div className="row mt-3 ">
+          <div className="mt-1">
             <div
               style={{
                 height: "375px",
                 overflowY: "scroll",
                 overflowX: "hidden",
-                marginTop: "20px",
               }}
             >
               <Table
                 striped
                 className="table-data border"
-                style={{ marginLeft: "5px", border: "1px" }}
+                style={{border: "1px" }}
               >
                 <thead className="tableHeaderBGColor tablebody">
                   <tr>

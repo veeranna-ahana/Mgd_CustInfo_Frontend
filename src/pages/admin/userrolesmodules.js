@@ -151,10 +151,13 @@ function UserRolesModules() {
         {/* className="boxcontainer"> */}
         <Form onSubmit={submitusrroles} autoComplete="off">
           <div className="row">
-            <div className="col-md-6">
-              <Form.Group>
-                <Form.Label>Role Name</Form.Label>
+            <div className="col-md-5">
+              <div className="d-flex" style={{ gap: "10px" }}>
+                <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+                  Role Name
+                </label>
                 <input
+                  className="in-field"
                   type="text"
                   id="rolename"
                   placeholder="Enter Role Name"
@@ -163,9 +166,9 @@ function UserRolesModules() {
                   value={rolename}
                   required
                 />
-              </Form.Group>
+              </div>
             </div>
-            <div className="col-md-4 mt-3">
+            <div className="col-md-4" style={{ marginTop: "-5px" }}>
               <Form.Group className="">
                 <button className="button-style" type="submit" id="btnsave">
                   {" "}
@@ -177,11 +180,10 @@ function UserRolesModules() {
               </Form.Group>
             </div>
           </div>
-          <Row className="mt-2">
+          <div className="">
             <div
-              xs={7}
-              className="mb-2"
-              style={{ width: "450px", height: "400px", overflowY: "scroll" }}
+              className="col-md-6 mt-1"
+              style={{ height: "400px", overflow: "auto" }}
             >
               <Table striped className="table-data border">
                 <thead className="tableHeaderBGColor tablebody">
@@ -200,7 +202,7 @@ function UserRolesModules() {
                 </tbody>
               </Table>
             </div>
-          </Row>
+          </div>
         </Form>
       </div>
     </div>

@@ -901,11 +901,11 @@ function Commercial() {
       <h4 className="title ">Outstanding Summary</h4>
 
       <div className="form-style">
-        <div className="secondary-container">
+        <div className="secondary-container mb-1">
           <div className="row">
             <div className="col-sm-12 col-md-4">
               <div className="box-container d-md-flex justify-content-md-end">
-                <span className="outstanding-sum-title ">30 Days</span>
+                <span className="outstanding-sum-title">30 Days</span>
                 <span className="outstanding-sum-value day30">{days30}</span>
               </div>
             </div>
@@ -981,13 +981,15 @@ function Commercial() {
           </Table>
         </div>
         {/* <Row className='mt-2 mb-3' id="outstandinginvreport"> */}
+        <div className="mt-2" style={{ textAlign: "center" }}>
+          <labele className="Out-standing-inv">Oustanding Invoices</labele>
+        </div>
 
-        <h4 className="title  mt-4">Oustanding Invoices</h4>
-        <Row>
-          <div className="row mt-2 mb-3 justify-content-end">
+        <div className="row mb-2 justify-content-end">
+          <div className="col-md-9"></div>
+          <div className="col-md-3">
             <button
               className="button-style"
-              style={{ width: "120px" }}
               onClick={() => {
                 printreport();
               }}
@@ -996,7 +998,6 @@ function Commercial() {
             </button>
             <button
               className="button-style"
-              style={{ width: "120px" }}
               onClick={() => {
                 createmail();
               }}
@@ -1005,7 +1006,6 @@ function Commercial() {
             </button>
             <button
               className="button-style"
-              style={{ width: "120px" }}
               onClick={() => {
                 navigate("/customer");
               }}
@@ -1013,126 +1013,126 @@ function Commercial() {
               Close
             </button>
           </div>
+        </div>
 
-          <div>
-            {" "}
-            {showOutStandReportState ? (
-              <div id="outstandinginvreport">
-                <Table responsive striped bordered style={{ width: "100%" }}>
-                  <thead className="tablebody">
-                    <tr className=" mt-1">
-                      <td rowspan="2" style={{ width: "44px" }}>
-                        <img
+        <div>
+          {" "}
+          {showOutStandReportState ? (
+            <div id="outstandinginvreport">
+              <Table responsive striped bordered style={{ width: "100%" }}>
+                <thead className="tablebody">
+                  <tr className=" mt-1">
+                    <td rowspan="2" style={{ width: "44px" }}>
+                      <img
+                        style={{
+                          width: "36px",
+                          height: "54px",
+                          // marginLeft: "35px",
+                        }}
+                        className="logo"
+                        src={CmpLogo}
+                      />
+                    </td>
+                    <td colSpan="8">
+                      <h6>
+                        <b>Magod Laser Machining Pvt. Ltd.</b>
+                      </h6>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colSpan="8">
+                      72, KIADB Industrial Area, Phase II Jigani, Anekal Taluk,
+                      Bangalore -560106
+                    </td>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td colSpan="8">
+                      <h6>
+                        Outstanding Invoices Report for{" "}
+                        {selectedCustomer["Cust_Name"]}
+                      </h6>
+                    </td>
+                  </tr>
+                  <tr
+                    style={{
+                      border: "1px",
+                      borderStyle: "solid",
+                    }}
+                  >
+                    {[
+                      "Inv No",
+                      "Inv Date",
+                      "Amount",
+                      "Received",
+                      "Balance",
+                      "DueDays",
+                      "PO No",
+                    ].map((h) => {
+                      return (
+                        <th
                           style={{
-                            width: "36px",
-                            height: "54px",
-                            // marginLeft: "35px",
-                          }}
-                          className="logo"
-                          src={CmpLogo}
-                        />
-                      </td>
-                      <td colSpan="8">
-                        <h5>
-                          <b>Magod Laser Machining Pvt. Ltd.</b>
-                        </h5>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td colSpan="8">
-                        72, KIADB Industrial Area, Phase II Jigani, Anekal
-                        Taluk, Bangalore -560106
-                      </td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td colSpan="8">
-                        <h6>
-                          Outstanding Invoices Report for{" "}
-                          {selectedCustomer["Cust_Name"]}
-                        </h6>
-                      </td>
-                    </tr>
-                    <tr
-                      style={{
-                        border: "1px",
-                        borderStyle: "solid",
-                      }}
-                    >
-                      {[
-                        "Inv No",
-                        "Inv Date",
-                        "Amount",
-                        "Received",
-                        "Balance",
-                        "DueDays",
-                        "PO No",
-                      ].map((h) => {
-                        return (
-                          <th
-                            style={{
-                              border: "1px",
-                              borderStyle: "solid",
-                            }}
-                          >
-                            {h}
-                          </th>
-                        );
-                      })}
-                    </tr>
-                  </thead>
-                  <tbody id="custtablebody" className="tablebody">
-                    {outstandinginvdetsdata != null
-                      ? outstandinginvdetsdata.map((outstandinginv) =>
-                          rendertblosinv(outstandinginv)
-                        )
-                      : ""}
-                    {selectedCustomer == "" ? (
-                      <tr style={{ borderWidth: "1px", borderColor: "black" }}>
-                        <td
-                          style={{
-                            textAlign: "center",
-                            fontSize: "16px",
-                            fontWeight: "800",
                             border: "1px",
                             borderStyle: "solid",
                           }}
-                          colSpan={8}
                         >
-                          No Customer Selected
-                        </td>
-                      </tr>
-                    ) : (
-                      ""
-                    )}
-                    {selectedCustomer != "" &&
-                    outstandinginvdetsdata.length == 0 ? (
-                      <tr borderWidth="1px" borderColor="black">
-                        <td
-                          className="custtd"
-                          style={{
-                            textAlign: "center",
-                            fontSize: "16px",
-                            fontWeight: "800",
-                            border: "1px",
-                            borderStyle: "solid",
-                          }}
-                          colSpan={8}
-                        >
-                          No Data Found for {selectedCustomer["Cust_Name"]}
-                        </td>
-                      </tr>
-                    ) : (
-                      ""
-                    )}
-                  </tbody>
-                </Table>
-              </div>
-            ) : (
-              ""
-            )}
-          </div>
-        </Row>
+                          {h}
+                        </th>
+                      );
+                    })}
+                  </tr>
+                </thead>
+                <tbody id="custtablebody" className="tablebody">
+                  {outstandinginvdetsdata != null
+                    ? outstandinginvdetsdata.map((outstandinginv) =>
+                        rendertblosinv(outstandinginv)
+                      )
+                    : ""}
+                  {selectedCustomer == "" ? (
+                    <tr style={{ borderWidth: "1px", borderColor: "black" }}>
+                      <td
+                        style={{
+                          textAlign: "center",
+                          fontSize: "16px",
+                          fontWeight: "800",
+                          border: "1px",
+                          borderStyle: "solid",
+                        }}
+                        colSpan={8}
+                      >
+                        No Customer Selected
+                      </td>
+                    </tr>
+                  ) : (
+                    ""
+                  )}
+                  {selectedCustomer != "" &&
+                  outstandinginvdetsdata.length == 0 ? (
+                    <tr borderWidth="1px" borderColor="black">
+                      <td
+                        className="custtd"
+                        style={{
+                          textAlign: "center",
+                          fontSize: "16px",
+                          fontWeight: "800",
+                          border: "1px",
+                          borderStyle: "solid",
+                        }}
+                        colSpan={8}
+                      >
+                        No Data Found for {selectedCustomer["Cust_Name"]}
+                      </td>
+                    </tr>
+                  ) : (
+                    ""
+                  )}
+                </tbody>
+              </Table>
+            </div>
+          ) : (
+            ""
+          )}
+        </div>
 
         {/*</Container > */}
 

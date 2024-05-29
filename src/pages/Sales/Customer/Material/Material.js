@@ -272,17 +272,20 @@ function Material() {
       <h4 className="title">Customer Material Information</h4>
 
       <div className="row">
-        <div className="col-md-6 ">
-          <label className="form-label">Select Customer</label>
-          <Form.Label
-            style={{
-              color: "#f20707",
-              fontSize: "16px",
-              fontWeight: "bold",
-            }}
-          >
-            *
-          </Form.Label>
+        <div className="col-md-6 d-flex" style={{ gap: "10px" }}>
+          <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+            Select Customer
+            <span
+              style={{
+                color: "#f20707",
+                fontSize: "16px",
+                fontWeight: "bold",
+              }}
+            >
+              *
+            </span>
+          </label>
+
           {custdata.length > 0 ? (
             // <Form.Select
             //   className="ip-select"
@@ -301,6 +304,7 @@ function Material() {
             //   })}
             // </Form.Select>
             <Typeahead
+              className="ip-select"
               id="basic-example"
               // onChange={selectCust}
               options={custdata}
@@ -327,16 +331,17 @@ function Material() {
           )}
         </div>
 
-        <div className="col-md-3">
+        <div className="col-md-3 d-flex mt-1" style={{ gap: "10px" }}>
           <label className="form-label">Code</label>
-          <input disabled type="text" value={custcode} />
+          <input className="in-field" disabled type="text" value={custcode} />
         </div>
-        <div className="col-md-2 mt-3">
+        <div className="col-md-2">
           <button
             id="btncustmtrlclose"
             type="submit"
             className="button-style"
             onClick={() => navigate("/customer")}
+            style={{ float: "right" }}
           >
             Close{" "}
           </button>
@@ -344,21 +349,17 @@ function Material() {
       </div>
       <div>
         {/* <MainTable /> */}
-        <div className="row mt-4">
+        <div className="row mt-1">
           <Tabs
             defaultActiveKey="mtrlrecpts"
             id="materialdetails"
-            className=" tab_font mt-4"
+            className="mb-1 tab_font"
           >
-            <Tab
-              eventKey="mtrlrecpts"
-              title="Material Receipts"
-              style={{ margin: "0px" }}
-            >
+            <Tab eventKey="mtrlrecpts" title="Material Receipts">
               <div>
-                <div className="row mt-3">
+                <div className="row">
                   <div
-                    className="col-md-6  mt-3"
+                    className="col-md-6"
                     style={{
                       height: "340px",
                       overflowY: "scroll",
@@ -384,7 +385,7 @@ function Material() {
                     </Table>
                   </div>
                   <div
-                    className="col-md-6  mt-3"
+                    className="col-md-6"
                     xs={6}
                     style={{ height: "340px", overflowY: "scroll" }}
                   >
@@ -503,34 +504,30 @@ function Material() {
             </Tab>
 
             <Tab eventKey="mtrldets" title="Material Stock Position">
-              <div>
-                <div className=" row mt-2">
-                  <div style={{ height: "325px", overflowY: "scroll" }}>
-                    <Table striped className="table-data border ">
-                      <thead className="tableHeaderBGColor tablebody">
-                        <tr className=" ">
-                          {[
-                            "Material",
-                            "Width",
-                            "Length",
-                            "InStock",
-                            "Locked",
-                            "Scrap",
-                          ].map((h) => {
-                            return <th className="custth ">{h}</th>;
-                          })}
-                        </tr>
-                      </thead>
-                      <tbody className="tablebody">
-                        {mtrlstkposition != null
-                          ? mtrlstkposition.map((mtrlstkposn) =>
-                              rendertable(mtrlstkposn)
-                            )
-                          : ""}
-                      </tbody>
-                    </Table>
-                  </div>
-                </div>
+              <div style={{ height: "325px", overflowY: "scroll" }}>
+                <Table striped className="table-data border ">
+                  <thead className="tableHeaderBGColor tablebody">
+                    <tr className=" ">
+                      {[
+                        "Material",
+                        "Width",
+                        "Length",
+                        "InStock",
+                        "Locked",
+                        "Scrap",
+                      ].map((h) => {
+                        return <th className="custth ">{h}</th>;
+                      })}
+                    </tr>
+                  </thead>
+                  <tbody className="tablebody">
+                    {mtrlstkposition != null
+                      ? mtrlstkposition.map((mtrlstkposn) =>
+                          rendertable(mtrlstkposn)
+                        )
+                      : ""}
+                  </tbody>
+                </Table>
               </div>
             </Tab>
           </Tabs>

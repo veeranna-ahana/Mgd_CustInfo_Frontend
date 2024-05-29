@@ -758,11 +758,11 @@ function PartList() {
       <h4 className="title">Customer BOM</h4>
 
       <div className="form-style"></div>
-      <Row>
-        <Col xs={6}>
-          <Form.Group controlId="formCustName">
-            <Form.Label>Customer</Form.Label>
-            <Form.Label
+      <div className="row">
+        <div className="col-md-6 d-flex" style={{ gap: "10px" }}>
+          <label className="form-label">
+            Customer
+            <span
               style={{
                 color: "#f20707",
                 fontSize: "16px",
@@ -770,8 +770,10 @@ function PartList() {
               }}
             >
               *
-            </Form.Label>
-            {/* <Form.Select
+            </span>
+          </label>
+
+          {/* <Form.Select
               aria-label="Select Customer"
               onChange={(e) => {
                 handleCustChange(e);
@@ -790,32 +792,36 @@ function PartList() {
                   })
                 : null}
             </Form.Select> */}
-            <Typeahead
-              id="formCustName"
-              // onChange={selectCust}
-              options={custarray}
-              placeholder="Select Customer"
-              // selected={selected}
-              /*onInputChange={(label) => {
+          <Typeahead
+            className="ip-select mt-1"
+            // id="formCustName"
+            id="formCustName"
+            // onChange={selectCust}
+            options={custarray}
+            placeholder="Select Customer"
+            // selected={selected}
+            /*onInputChange={(label) => {
                   console.log("input change :", label);
                 }}
                 onChange={(label) => {
                   console.log("onchange :", label);
                 }}*/
-              onChange={(label) => handleCustChange(label)}
-            />
-          </Form.Group>
-        </Col>
-        <Col xs={3} style={{ display: "flex" }}>
-          <Form.Group as={Row}>
-            <Form.Label>Code </Form.Label>
-            <input id="formCustCode" disabled value={custcode} />
-          </Form.Group>
-        </Col>
-        <Col xs={3}>
+            onChange={(label) => handleCustChange(label)}
+          />
+        </div>
+        <div className="col-md-3 d-flex" style={{ gap: "10px" }}>
+          <label className="form-label mt-1">Code </label>
+          <input
+            className="in-field mt-1"
+            id="formCustCode"
+            disabled
+            value={custcode}
+          />
+        </div>
+        <div className="col-md-3">
           <div>
             <button
-              className="button-style mt-3 "
+              className="button-style"
               id="btnclose"
               type="submit"
               onClick={() => navigate("/customer")}
@@ -823,41 +829,43 @@ function PartList() {
               Close{" "}
             </button>
           </div>
-        </Col>
-      </Row>
+        </div>
+      </div>
       <Row>
-        <Tabs defaultActiveKey="bomitemslist" className="mb-1  tab_font mt-4">
-          <Tab
-            eventKey="bomitemslist"
-            title="Customer BOM Items List"
-            style={{ padding: 0, marginRight: "20px" }}
-          >
-            <Container fluid style={{ padding: 0, marginRight: "20px" }}>
-              <Row>
-                <Col xs={8} style={{ overflowY: "scroll", height: "300px" }}>
-                  <Table striped className="table-data border">
-                    <thead className="tableHeaderBGColor tablebody">
-                      <tr>
-                        <th>Magod Part ID</th>
-                        <th>Part ID</th>
-                        <th>Part Description</th>
-                      </tr>
-                    </thead>
-                    <tbody className="tablebody">
-                      {custbomparts != null
-                        ? custbomparts.map((part) => renderBomItemList(part))
-                        : null}
-                    </tbody>
-                  </Table>
-                </Col>
-                <Col xs={4} style={{ backgroundColor: "#e6e6e6" }}>
-                  <Form onSubmit={addBOMPart} autoComplete="off">
-                    <Form.Text>
-                      <u>Part as identified in Customer Drawing</u>
-                    </Form.Text>
-                    <Form.Group className="mb-2">
-                      <Form.Label>Part ID</Form.Label>
-                      <Form.Label
+        <Tabs defaultActiveKey="bomitemslist" className="mb-1  tab_font">
+          <Tab eventKey="bomitemslist" title="Customer BOM Items List">
+            <div className="row">
+              <div
+                className="col-md-8"
+                style={{ overflowY: "scroll", height: "200px" }}
+              >
+                <Table striped className="table-data border">
+                  <thead className="tableHeaderBGColor tablebody">
+                    <tr>
+                      <th>Magod Part ID</th>
+                      <th>Part ID</th>
+                      <th>Part Description</th>
+                    </tr>
+                  </thead>
+                  <tbody className="tablebody">
+                    {custbomparts != null
+                      ? custbomparts.map((part) => renderBomItemList(part))
+                      : null}
+                  </tbody>
+                </Table>
+              </div>
+              <div className="col-md-4" style={{ backgroundColor: "#e6e6e6" }}>
+                <Form onSubmit={addBOMPart} autoComplete="off">
+                  <h6 className="mb-3" style={{ textAlign: "center" }}>
+                    <u>Part as identified in Customer Drawing</u>
+                  </h6>
+                  <div className="d-flex" style={{ gap: "60px" }}>
+                    <label
+                      className="form-label"
+                      style={{ whiteSpace: "nowrap" }}
+                    >
+                      Part ID
+                      <span
                         style={{
                           color: "#f20707",
                           fontSize: "16px",
@@ -865,19 +873,25 @@ function PartList() {
                         }}
                       >
                         *
-                      </Form.Label>
-                      <input
-                        id="formpartid"
-                        className="in-fields"
-                        type="text"
-                        placeholder="Enter Part ID"
-                        required
-                      />
-                    </Form.Group>
+                      </span>
+                    </label>
 
-                    <Form.Group className="mb-2">
-                      <Form.Label>Part Description</Form.Label>
-                      <Form.Label
+                    <input
+                      id="formpartid"
+                      className="in-fields"
+                      type="text"
+                      placeholder="Enter Part ID"
+                      required
+                    />
+                  </div>
+
+                  <div className="d-flex" style={{ gap: "10px" }}>
+                    <label
+                      className="form-label"
+                      style={{ whiteSpace: "nowrap" }}
+                    >
+                      Part Description
+                      <span
                         style={{
                           color: "#f20707",
                           fontSize: "16px",
@@ -885,15 +899,18 @@ function PartList() {
                         }}
                       >
                         *
-                      </Form.Label>
-                      <input
-                        id="formpartdesc"
-                        className="in-fields"
-                        type="text"
-                        placeholder="Enter Part Description"
-                        required
-                      />
-                    </Form.Group>
+                      </span>
+                    </label>
+
+                    <input
+                      id="formpartdesc"
+                      className="in-fields"
+                      type="text"
+                      placeholder="Enter Part Description"
+                      required
+                    />
+                  </div>
+                  <div style={{ textAlign: "center" }}>
                     <button
                       variant="primary"
                       type="submit"
@@ -901,15 +918,18 @@ function PartList() {
                     >
                       Add Part
                     </button>
-                  </Form>
-                </Col>
-              </Row>
-            </Container>
+                  </div>
+                </Form>
+              </div>
+            </div>
           </Tab>
 
           <Tab eventKey="custpartassmlist" title="Customer Assembly List">
-            <Row>
-              <Col xs={8} style={{ maxHeight: "500px", overflowY: "scroll" }}>
+            <div className="row">
+              <div
+                className="col-md-8"
+                style={{ maxHeight: "500px", overflowY: "scroll" }}
+              >
                 <Table striped className="table-data border">
                   <thead className="tableHeaderBGColor tablebody">
                     <tr>
@@ -932,34 +952,45 @@ function PartList() {
                       : null}
                   </tbody>
                 </Table>
-              </Col>
-              <Col xs={4} style={{ backgroundColor: "#e6e6e6" }}>
+              </div>
+              <div className="col-md-4" style={{ backgroundColor: "#e6e6e6" }}>
                 <Form onSubmit={addAssemblyDetails} autoComplete="off">
-                  <Form.Text>
+                  <h6 className="" style={{ textAlign: "center" }}>
                     <u>Part / Assembly Details</u>
-                  </Form.Text>
-                  <Form.Group>
-                    <Form.Label>Magod ID</Form.Label>
+                  </h6>
+                  <div className="d-flex" style={{ gap: "30px" }}>
+                    <label
+                      className="form-label"
+                      style={{ whiteSpace: "nowrap" }}
+                    >
+                      Magod ID
+                    </label>
                     <input
                       id="formmagodid"
                       className="in-fields"
                       type="text"
                       placeholder="Enter Magod ID"
                       disabled
+                      style={{ marginTop: "-5px" }}
                     />
-                  </Form.Group>
+                  </div>
 
-                  <Form.Group>
-                    <Form.Label>Assembly ID</Form.Label>
-                    <Form.Label
-                      style={{
-                        color: "#f20707",
-                        fontSize: "16px",
-                        fontWeight: "bold",
-                      }}
+                  <div className="d-flex" style={{ gap: "10px" }}>
+                    <label
+                      className="form-label"
+                      style={{ whiteSpace: "nowrap", marginTop: "-5px" }}
                     >
-                      *
-                    </Form.Label>
+                      Assembly ID
+                      <span
+                        style={{
+                          color: "#f20707",
+                          fontSize: "16px",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        *
+                      </span>
+                    </label>
 
                     <input
                       id="formassyid"
@@ -968,20 +999,22 @@ function PartList() {
                       placeholder="Enter Assembly ID"
                       required
                     />
-                  </Form.Group>
+                  </div>
 
-                  {/* <Row> */}
-                  <Form.Group>
-                    <Form.Label>Description</Form.Label>
-                    <Form.Label
-                      style={{
-                        color: "#f20707",
-                        fontSize: "16px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      *
-                    </Form.Label>
+                  <div className="d-flex" style={{ gap: "15px" }}>
+                    <label className="form-label" style={{ marginTop: "-5px" }}>
+                      Description
+                      <span
+                        style={{
+                          color: "#f20707",
+                          fontSize: "16px",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        *
+                      </span>
+                    </label>
+
                     <input
                       id="formdescription"
                       className="in-fields"
@@ -989,19 +1022,21 @@ function PartList() {
                       type="text"
                       placeholder="Enter Description"
                     />
-                  </Form.Group>
+                  </div>
 
-                  <Form.Group>
-                    <Form.Label>Status</Form.Label>
-                    <Form.Label
-                      style={{
-                        color: "#f20707",
-                        fontSize: "16px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      *
-                    </Form.Label>
+                  <div className="d-flex" style={{ gap: "45px" }}>
+                    <label className="form-label" style={{ marginTop: "-5px" }}>
+                      Status
+                      <span
+                        style={{
+                          color: "#f20707",
+                          fontSize: "16px",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        *
+                      </span>
+                    </label>
 
                     <select
                       className="ip-select dropdown-field"
@@ -1009,18 +1044,22 @@ function PartList() {
                       aria-label="Select Status"
                       // value={Statusss}
                       defaultValue={Statusss}
+                      style={{ marginTop: "-1px" }}
                     >
                       <option selected>Select Status</option>
                       {["Create", "Edit", "Locked", "Closed"].map((st) => {
                         return <option value={st}>{st}</option>;
                       })}
                     </select>
-                  </Form.Group>
-                  {/* </Row> */}
+                  </div>
 
-                  {/* <Row> */}
-                  <Form.Group>
-                    <Form.Label>Mtrl Cost</Form.Label>
+                  <div className="d-flex" style={{ gap: "35px" }}>
+                    <label
+                      className="form-label"
+                      style={{ whiteSpace: "nowrap" }}
+                    >
+                      Mtrl Cost
+                    </label>
                     <input
                       id="formmtrlcost"
                       className="in-fields"
@@ -1032,9 +1071,14 @@ function PartList() {
                       defaultValue={mtrlcost}
                       placeholder="Enter Mtrl Cost"
                     />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Labour Cost</Form.Label>
+                  </div>
+                  <div className="d-flex" style={{ gap: "19px" }}>
+                    <label
+                      className="form-label"
+                      style={{ whiteSpace: "nowrap" }}
+                    >
+                      Labour Cost
+                    </label>
                     <input
                       id="formjwcost"
                       className="in-fields"
@@ -1046,7 +1090,7 @@ function PartList() {
                       // value={lbrcost}
                       placeholder="Enter Labour Cost"
                     />
-                  </Form.Group>
+                  </div>
 
                   {/* <Form.Group as={Row} className="mb-1">
                     <Form.Label>Labour Cost</Form.Label>
@@ -1061,112 +1105,89 @@ function PartList() {
                       placeholder="Enter Labour Cost"
                     />
                   </Form.Group> */}
-                  {/* </Row> */}
+
                   <div>
-                    <Form.Group className="mb-1" style={{ marginLeft: "25px" }}>
-                      <div className="justify-content-center">
-                        <Button
-                          style={{
-                            width: "100px",
-                            height: "39px",
-                            border: "none",
-                            marginRight: "10px",
-                            backgroundColor: "#2b3a55",
-                            color: " #ffffff",
-                            borderRadius: " 5px",
-                            padding: " 3px",
-                            marginTop: "23px",
-                            fontSize: "18px",
-                          }}
+                    <div className="mb-1" style={{ marginLeft: "25px" }}>
+                      <div className="" style={{ textAlign: "center" }}>
+                        <button
+                          className="button-style"
                           variant="primary"
                           disabled={btnaddnew}
                           type="submit"
                         >
                           Add New
-                        </Button>
-                        <Button
-                          style={{
-                            width: "110px",
-                            height: "39px",
-                            border: "none",
-                            marginRight: "10px",
-                            backgroundColor: "#2b3a55",
-                            color: " #ffffff",
-                            borderRadius: " 5px",
-                            padding: " 3px",
-                            marginTop: "23px",
-                            fontSize: "18px",
-                          }}
+                        </button>
+                        <button
+                          className="button-style"
                           variant="primary"
                           disabled={btnupdate}
                           onClick={updateAssembly}
                         >
                           Update
-                        </Button>
-                        <Button
-                          style={{
-                            width: "110px",
-                            height: "39px",
-                            border: "none",
-                            marginRight: "10px",
-                            backgroundColor: "#2b3a55",
-                            color: " #ffffff",
-                            borderRadius: " 5px",
-                            padding: " 3px",
-                            marginTop: "23px",
-                            fontSize: "18px",
-                          }}
+                        </button>
+                        <button
+                          className="button-style"
                           variant="primary"
                           onClick={() => {
                             saveBomAssemblyParts();
                           }}
                         >
                           Save{" "}
-                        </Button>
+                        </button>
                       </div>
-                    </Form.Group>
+                    </div>
                   </div>
                 </Form>
-              </Col>
-            </Row>
-            <h4 className="form-title  mt-2">Bill of Materials (BOM)</h4>
-            <hr className="horizontal-line" />
-            <Row>
-              <Col xs={7} style={{ maxHeight: "230px", overflowY: "scroll" }}>
-                <div style={{ overflowY: "scroll" }}>
-                  <Table striped className="table-data border">
-                    <thead className="tableHeaderBGColor tablebody">
-                      <tr>
-                        {["Assm PartId", "Part ID", "Description", "Qty"].map(
-                          (item) => {
-                            return <th>{item}</th>;
-                          }
-                        )}
-                      </tr>
-                    </thead>
-                    <tbody className="tablebody">
-                      {custpartdetails != null
-                        ? custpartdetails.map((part, id) =>
-                            rendercustpartdetail(part, id)
-                          )
-                        : null}
-                    </tbody>
-                  </Table>
-                </div>
-              </Col>
-              <Col xs={5} style={{ backgroundColor: "#e6e6e6" }}>
+              </div>
+            </div>
+            <div style={{ textAlign: "center" }}>
+              <label className="Out-standing-inv ms-2 mb-1">
+                Bill of Materials (BOM)
+              </label>
+            </div>
+            <div className="row">
+              <div
+                className="col-md-8"
+                style={{ maxHeight: "230px", overflowY: "scroll" }}
+              >
+                <Table striped className="table-data border">
+                  <thead className="tableHeaderBGColor tablebody">
+                    <tr>
+                      {["Assm PartId", "Part ID", "Description", "Qty"].map(
+                        (item) => {
+                          return <th>{item}</th>;
+                        }
+                      )}
+                    </tr>
+                  </thead>
+                  <tbody className="tablebody">
+                    {custpartdetails != null
+                      ? custpartdetails.map((part, id) =>
+                          rendercustpartdetail(part, id)
+                        )
+                      : null}
+                  </tbody>
+                </Table>
+              </div>
+              <div className="col-md-4" style={{ backgroundColor: "#e6e6e6" }}>
                 <Form onSubmit={addCustPart} autoComplete="off">
-                  <Form.Text>
+                  <h6 className="" style={{ textAlign: "center" }}>
                     <u>Part Details</u>
-                  </Form.Text>
-                  <Form.Group as={Row}>
-                    <Form.Label>Part ID </Form.Label>
+                  </h6>
+                  <div className="d-flex" style={{ gap: "10px" }}>
+                    <label
+                      className="form-label"
+                      style={{ whiteSpace: "nowrap" }}
+                    >
+                      Part ID{" "}
+                    </label>
 
                     <select
                       className="ip-select dropdown-field"
                       id="formcustpartid"
                       aria-label="Select Customer Part ID"
                       onChange={selectedPart}
+                      style={{ marginTop: "-3px" }}
                     >
                       <option selected disabled>
                         Select Customer Part ID
@@ -1181,10 +1202,10 @@ function PartList() {
                           })
                         : null}
                     </select>
-                  </Form.Group>
+                  </div>
 
-                  <Form.Group as={Row}>
-                    <Form.Label>Qty</Form.Label>
+                  <div className="d-flex" style={{ gap: "28px" }}>
+                    <label className="form-label">Qty</label>
                     <input
                       className="in-fields"
                       id="formqty"
@@ -1194,54 +1215,34 @@ function PartList() {
                       placeholder="Enter Quantity"
                       min="0"
                     />
-                  </Form.Group>
+                  </div>
 
-                  <div className="row mt-4 mb-4 justify-content-center">
-                    <Button
-                      style={{
-                        width: "200px",
-                        height: "39px",
-                        border: "none",
-                        marginRight: "10px",
-                        backgroundColor: "#2b3a55",
-                        color: " #ffffff",
-                        borderRadius: " 5px",
-                        padding: " 3px",
-                        marginTop: "23px",
-                        fontSize: "18px",
-                      }}
-                      variant="primary"
-                      type="submit"
-                      disabled={btnasmprtnew}
-                      // onClick={() => {
-                      //   saveBomAssemblyParts();
-                      // }}
-                    >
-                      Add Assm Parts{" "}
-                    </Button>
-                    <Button
-                      style={{
-                        width: "200px",
-                        height: "39px",
-                        border: "none",
-                        marginRight: "10px",
-                        backgroundColor: "#2b3a55",
-                        color: " #ffffff",
-                        borderRadius: " 5px",
-                        padding: " 3px",
-                        marginTop: "23px",
-                        fontSize: "18px",
-                      }}
-                      variant="primary"
-                      disabled={btnasmprtdel}
-                      onClick={deleteassmparts}
-                    >
-                      Delete Assm Parts{" "}
-                    </Button>
+                  <div className="row mt-4 mb-2 justify-content-center">
+                    <div style={{ textAlign: "center" }}>
+                      <button
+                        className="button-style"
+                        variant="primary"
+                        type="submit"
+                        disabled={btnasmprtnew}
+                        // onClick={() => {
+                        //   saveBomAssemblyParts();
+                        // }}
+                      >
+                        Add Assm Parts
+                      </button>
+                      <button
+                        className="button-style"
+                        variant="primary"
+                        disabled={btnasmprtdel}
+                        onClick={deleteassmparts}
+                      >
+                        Delete Assm Parts
+                      </button>
+                    </div>
                   </div>
                 </Form>
-              </Col>
-            </Row>
+              </div>
+            </div>
             {/* </Container> */}
           </Tab>
         </Tabs>

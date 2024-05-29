@@ -229,132 +229,120 @@ function CreateUsers() {
         <div className="form-style">
           <Form onSubmit={saveusers} autoComplete="off">
             <div className="row">
-              <div className="col-md-3">
-                <Form.Group as={Row} className="mt-1">
-                  <label className="form-label">Name</label>
-                  <input
-                    id="uname"
-                    placeholder="Enter Name"
-                    onChange={handleChangeAlphaNumeric}
-                    value={uname}
-                    required
-                  />
-                </Form.Group>
+              <div className="col-md-3 d-flex" style={{ gap: "10px" }}>
+                <label className="form-label">Name</label>
+                <input
+                  className="in-field"
+                  id="uname"
+                  placeholder="Enter Name"
+                  onChange={handleChangeAlphaNumeric}
+                  value={uname}
+                  required
+                />
               </div>
-              <div className="col-md-3">
-                <Form.Group as={Row} className="mt-1">
-                  <label className="form-label">User Name</label>
-                  <input
-                    id="username"
-                    type="text"
-                    placeholder="Enter User Name"
-                    onChange={(e) => setUsername(e.target.value)}
-                    value={username}
-                    required
-                  />
-                </Form.Group>
+              <div className="col-md-3 d-flex" style={{ gap: "10px" }}>
+                <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+                  User Name
+                </label>
+                <input
+                  className="in-field"
+                  id="username"
+                  type="text"
+                  placeholder="Enter User Name"
+                  onChange={(e) => setUsername(e.target.value)}
+                  value={username}
+                  required
+                />
               </div>
-              <div className="col-md-3">
-                <Form.Group as={Row} className="mt-1">
-                  <label className="form-label">Password</label>
-                  <input
-                    id="password"
-                    type="password"
-                    placeholder="Enter Password"
-                    onChange={passchk}
-                    value={password}
+              <div className="col-md-2 d-flex" style={{ gap: "10px" }}>
+                <label className="form-label">Password</label>
+                <input
+                  className="in-field"
+                  id="password"
+                  type="password"
+                  placeholder="Enter Password"
+                  onChange={passchk}
+                  value={password}
+                  required
+                />
+              </div>
+              <div className="col-md-2 d-flex" style={{ gap: "10px" }}>
+                <label className="form-label">Role</label>
+                {userrolesdata.length > 0 ? (
+                  <select
+                    className="ip-select"
+                    id="urole"
+                    onChange={(e) => setUrole(e.target.value)}
+                    value={urole}
                     required
-                  />
-                </Form.Group>
+                  >
+                    <option value="" disabled selected>
+                      {" "}
+                      Select Role{" "}
+                    </option>
+                    {userrolesdata.map((usrrole) => {
+                      return (
+                        <option value={usrrole["Role"]}>
+                          {usrrole["Role"]}
+                        </option>
+                      );
+                    })}
+                  </select>
+                ) : (
+                  ""
+                )}
+              </div>
+              <div className="col-md-2 d-flex" style={{ gap: "10px" }}>
+                <label className="form-label">Unit</label>
+                {unitsdata.length > 0 ? (
+                  <select
+                    className="ip-select"
+                    id="unit"
+                    onChange={(e) => setUnit(e.target.value)}
+                    value={unit}
+                    required
+                  >
+                    {" "}
+                    <option value="" disabled selected>
+                      {" "}
+                      Select Unit{" "}
+                    </option>
+                    {unitsdata.map((unit, id) => {
+                      return (
+                        <option key={id} value={unit["UnitID"]}>
+                          {unit["UnitName"]}
+                        </option>
+                      );
+                    })}
+                  </select>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
-            <div className="row mt-2">
-              <div className="col-md-3">
-                {" "}
-                <Form.Group as={Row} className="mt-1">
-                  <label className="form-label">Role</label>
-                  {userrolesdata.length > 0 ? (
-                    <select
-                      className="ip-select"
-                      id="urole"
-                      onChange={(e) => setUrole(e.target.value)}
-                      value={urole}
-                      required
-                    >
-                      <option value="" disabled selected>
-                        {" "}
-                        Select Role{" "}
-                      </option>
-                      {userrolesdata.map((usrrole) => {
-                        return (
-                          <option value={usrrole["Role"]}>
-                            {usrrole["Role"]}
-                          </option>
-                        );
-                      })}
-                    </select>
-                  ) : (
-                    ""
-                  )}
-                </Form.Group>
-              </div>
-              <div className="col-md-3">
-                <Form.Group
-                  as={Row}
-                  className="mt-1"
-                  style={{ display: "flex" }}
+            <div className="row ">
+              <div className="col-md-12">
+                <button
+                  className="button-style"
+                  disabled={btnsave}
+                  type="submit"
+                  style={{ float: "right" }}
                 >
-                  <label className="form-label">Unit</label>
-                  {unitsdata.length > 0 ? (
-                    <select
-                      className="ip-select"
-                      id="unit"
-                      onChange={(e) => setUnit(e.target.value)}
-                      value={unit}
-                      required
-                    >
-                      {" "}
-                      <option value="" disabled selected>
-                        {" "}
-                        Select Unit{" "}
-                      </option>
-                      {unitsdata.map((unit, id) => {
-                        return (
-                          <option key={id} value={unit["UnitID"]}>
-                            {unit["UnitName"]}
-                          </option>
-                        );
-                      })}
-                    </select>
-                  ) : (
-                    ""
-                  )}
-                </Form.Group>
-              </div>
-              <div className="col-md-4">
-                <Form.Group className="mt-3" controlId="submit">
-                  <button
-                    className="button-style"
-                    style={{ width: "145px" }}
-                    disabled={btnsave}
-                    type="submit"
-                  >
-                    Save
-                  </button>
-                  <button
-                    className="button-style"
-                    style={{ width: "145px" }}
-                    disabled={btndelete}
-                    onClick={deactiveuser}
-                  >
-                    Delete
-                  </button>
-                </Form.Group>
+                  Save
+                </button>
+                <button
+                  className="button-style"
+                  disabled={btndelete}
+                  onClick={deactiveuser}
+                  style={{ float: "right" }}
+                >
+                  Delete
+                </button>
               </div>
             </div>
 
             <div className="row">
-              <div className="col-md-8 mt-4">
+              <div className="col-md-8 mt-2">
                 <div style={{ maxHeight: "280px", overflowY: "scroll" }}>
                   <Table striped className="table-data border">
                     <thead className="tableHeaderBGColor tablebody">
@@ -374,7 +362,7 @@ function CreateUsers() {
                   </Table>
                 </div>
               </div>
-              <div className="col-md-4 mt-4">
+              <div className="col-md-4 mt-2">
                 <div style={{ maxHeight: "300px", overflowY: "scroll" }}>
                   <Table striped className="table-data border">
                     <thead className="tableHeaderBGColor">
